@@ -10,10 +10,16 @@ def home():
 
 @main.route("/add-test")
 def add_test():
+    email = "test@tayaqan.com"
+
+    existing = VerifierUser.query.filter_by(verifieremail=email).first()
+    if existing:
+        return "Already exists ✅"
+
     user = VerifierUser(
-        name="Test User",
-        email="test@tayaqan.com",
-        password="123"
+        verifiername="Test User",
+        verifieremail=email,
+        verifierpassword="123"
     )
     db.session.add(user)
     db.session.commit()
