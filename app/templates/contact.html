@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>تواصل معنا - تيقّن</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/contact.css') }}">
+</head>
+
+<body class="page-bg">
+  {% include 'navbar.html' %}
+
+  <!-- HERO (البنفسجي اللي فوق) -->
+  <section class="hero">
+    <h1 class="hero__title">تواصل معنا</h1>
+    <p class="hero__sub">
+      نحن هنا للإجابة على استفساراتكم ومساعدتكم في استخدام نظام تيقّن للتحقق من صحة
+      <br/>
+      التلاوات
+    </p>
+  </section>
+
+  <main class="container">
+
+    <!-- Contact info cards -->
+    <section class="info-grid">
+      <div class="info-card">
+        <div class="info-icon">
+          <img src="{{ url_for('static', filename='img/icon-phone2.png') }}" alt="Phone">
+        </div>
+        <div class="info-title">الهاتف</div>
+        <div class="info-value">+966 XX XXX XXXX</div>
+      </div>
+
+      <div class="info-card">
+        <div class="info-icon">
+          <img src="{{ url_for('static', filename='img/icon-mail.png') }}" alt="Mail">
+        </div>
+        <div class="info-title">البريد الإلكتروني</div>
+        <div class="info-value">info@tayaqan.com</div>
+      </div>
+    </section>
+
+    <!-- عنوان المنتصف -->
+    <div class="mid-title">الأسئلة الشائعة</div>
+
+    <section class="grid">
+      <!-- يسار: FAQ -->
+      <div class="faq">
+
+        <div class="faq-card">
+          <div class="faq-q">
+            <span class="dot">•</span>
+            <span>ما الذي يفحصه نظام تيقّن؟</span>
+          </div>
+          <p class="faq-a">
+            النظام يتحقق من صحة التلاوة فقط: هل الكلمات كاملة أم ناقصة، هل توجد كلمات زائدة،
+            وهل تم تحريف أي كلمات (تبديل أو تغيير). لا يفحص التجويد أو الحركات أو التشكيل.
+          </p>
+        </div>
+
+        <div class="faq-card">
+          <div class="faq-q">
+            <span class="dot">•</span>
+            <span>كيف أستخدم النظام؟</span>
+          </div>
+          <p class="faq-a">
+            ارفع ملف صوتي أو فيديو للتلاوة، أو ضع رابط يوتيوب، وسيقوم النظام بتحليلها ومقارنتها
+            بالنص الصحيح ثم يعرض لك تقريرًا بالأخطاء إن وجدت.
+          </p>
+        </div>
+
+        <div class="faq-card">
+          <div class="faq-q">
+            <span class="dot">•</span>
+            <span>هل يدعم النظام جميع القراءات؟</span>
+          </div>
+          <p class="faq-a">
+            حاليًا يدعم النظام قراءة حفص عن عاصم، ونعمل على إضافة القراءات الأخرى قريبًا.
+          </p>
+        </div>
+
+        <!-- الصندوق الرمادي اللي تحت يسار -->
+        <div class="help-card">
+          <h3 class="help-title">لديك استفسار آخر؟</h3>
+          <p class="help-text">
+            راسلنا عبر البريد الإلكتروني أو اتصل بنا مباشرة وسنرد عليك في أقرب وقت.
+          </p>
+
+          <div class="help-actions">
+            <a class="help-btn outline" href="tel:+966XXXXXXXXX">
+              <img class="btn-ico" src="{{ url_for('static', filename='img/icon-phone2.png') }}" alt="">
+              اتصل بنا
+            </a>
+            <a class="help-btn solid" href="mailto:info@tayaqan.com">
+              <img class="btn-ico" src="{{ url_for('static', filename='img/icon-mail.png') }}" alt="">
+              راسلنا
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- يمين: Contact Form -->
+      <div class="form-wrap">
+        <div class="form-head">
+          <div class="form-head__icon">
+            <img src="{{ url_for('static', filename='img/icon-send.png') }}" alt="Message">
+          </div>
+          <h2 class="form-head__title">أرسل لنا رسالة</h2>
+        </div>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    {% for category, msg in messages %}
+      <div class="alert {{ 'success' if category == 'success' else 'error' }}" id="flash-msg">
+        {{ msg }}
+      </div>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+
+        <form class="form-card" method="POST" action="{{ url_for('main.contact') }}">
+          <label class="lbl">الاسم</label>
+          <input class="in" name="name" type="text" placeholder="أدخل اسمك الكامل" required>
+
+          <label class="lbl">البريد الإلكتروني</label>
+          <input class="in" name="email" type="email" placeholder="email@example.com" required>
+
+          <label class="lbl">الموضوع</label>
+          <input class="in" name="subject" type="text" placeholder="موضوع الرسالة" required>
+
+          <label class="lbl">الرسالة</label>
+          <textarea class="ta" name="message" rows="6" placeholder="اكتب رسالتك هنا..." required></textarea>
+
+          <button class="send-btn" type="submit">
+            <img class="send-ico" src="{{ url_for('static', filename='img/icon-message.png') }}" alt="">
+            إرسال الرسالة
+          </button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  {% include 'footer.html' %}
+  <script>
+  const flashMsg = document.getElementById('flash-msg');
+  if (flashMsg) {
+    setTimeout(() => {
+      flashMsg.style.transition = 'opacity .4s ease, transform .4s ease';
+      flashMsg.style.opacity = '0';
+      flashMsg.style.transform = 'translateY(-6px)';
+      setTimeout(() => flashMsg.remove(), 450);
+    }, 2500); // المدة اللي تبينها
+  }
+</script>
+</body>
+</html>

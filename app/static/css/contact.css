@@ -1,0 +1,290 @@
+*{ box-sizing:border-box; }
+body{
+  margin:0;
+  font-family: system-ui, "Segoe UI", Tahoma, Arial;
+  color:#2d2d2d;
+}
+
+:root{
+  --purple:#8E83A9;
+  --purple-dark:#7A7095;
+  --bg:#f6f3f7;
+  --card:#ffffff;
+  --border: rgba(0,0,0,.06);
+  --shadow: 0 10px 28px rgba(20, 20, 30, 0.10);
+}
+
+.page-bg{
+  background: radial-gradient(circle at 30% 20%, #f7f2f5 0%, #f3eef2 35%, #f6f4f6 70%, #f4f1f4 100%);
+}
+
+/* HERO */
+.hero{
+  background: var(--purple);
+  text-align:center;
+  padding: 44px 16px;
+}
+.hero__title{
+  margin: 0 0 10px;
+  color:#fff;
+  font-size: 18px;
+  font-weight: 700;
+}
+.hero__sub{
+  margin:0;
+  color: rgba(255,255,255,.85);
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+/* layout */
+.container{
+  width: min(1200px, 92%);
+  margin: 0 auto;
+  padding: 28px 0 40px;
+}
+
+/* info cards فوق */
+.info-grid{
+  direction: ltr;                
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px;
+  margin-top: 12px;
+  margin-bottom: 22px;
+}
+.info-grid > *{ direction: rtl; } 
+
+.info-card{
+  background: rgba(255,255,255,.75);
+  border: 1px solid rgba(180, 170, 190, 0.25);
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+  padding: 24px 18px;
+  text-align:center;
+  backdrop-filter: blur(8px);
+}
+.info-icon{
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  background: var(--purple);
+  display:grid;
+  place-items:center;
+  margin: 0 auto 10px;
+  box-shadow: 0 10px 20px rgba(142,131,169,.22);
+}
+.info-icon img{
+  width: 34px;              /* ✅ كبرنا الأيقونة */
+  height: 34px;             /* ✅ كبرنا الأيقونة */
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+}
+.info-title{
+  color:#6e647a;
+  font-weight:700;
+  font-size: 14px;
+  margin-bottom: 6px;
+}
+.info-value{
+  color:#2d2d2d;
+  font-size: 13px;
+}
+
+/* عنوان منتصف الصفحة */
+.mid-title{
+  text-align:center;
+  color:#7a6f86;
+  font-weight:700;
+  margin: 8px 0 18px;
+}
+
+/* main grid */
+.grid{
+  direction: ltr; /* ✅ هذا أهم سطر: يخلي FAQ يسار و الفورم يمين */
+  display:grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 22px;
+  align-items:start;
+}
+.grid > *{ direction: rtl; } /* نخلي النص عربي داخل الأقسام */
+
+/* FAQ cards */
+.faq-card{
+  background: rgba(255,255,255,.75);
+  border: 1px solid rgba(180, 170, 190, 0.25);
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+  padding: 18px 20px;
+  backdrop-filter: blur(8px);
+  margin-bottom: 16px;
+}
+.faq-q{
+  display:flex;
+  align-items:flex-start;
+  gap: 8px;
+  font-weight:700;
+  color:#5e546a;
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+.dot{ color: var(--purple); }
+.faq-a{
+  margin:0;
+  line-height:1.9;
+  color:#5a5a5a;
+  font-size: 13px;
+}
+
+/* Help card (الرمادي الكبير تحت يسار) */
+.help-card{
+  background: rgba(240, 235, 244, 0.85);
+  border: 1px solid rgba(180, 170, 190, 0.25);
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+  padding: 18px 20px;
+}
+.help-title{
+  margin:0 0 8px;
+  text-align:center;
+  color:#6e647a;
+  font-size: 14px;
+}
+.help-text{
+  margin:0;
+  text-align:center;
+  color:#5a5a5a;
+  font-size: 13px;
+  line-height:1.8;
+}
+.help-actions{
+  display:flex;
+  gap: 10px;
+  justify-content:center;
+  margin-top: 14px;
+}
+.help-btn{
+  display:inline-flex;
+  align-items:center;
+  gap: 8px;
+  padding: 10px 16px;
+  border-radius: 14px;
+  text-decoration:none;
+  font-weight:700;
+  font-size: 13px;
+  border: 1px solid transparent;
+}
+.help-btn .btn-ico{
+  width: 22px;              
+  height: 22px;            
+  object-fit:contain;
+}
+.help-btn.outline{
+  background:#fff;
+  border-color: var(--purple);
+  color: var(--purple);
+}
+.help-btn.solid{
+  background: var(--purple);
+  color:#fff;
+}
+.help-btn.solid .btn-ico{
+  filter: brightness(0) invert(1);
+}
+
+/* Form header */
+.form-head{
+  display:flex;
+  align-items:center;
+  justify-content:flex-start;
+  gap: 12px;
+  margin-bottom: 12px;
+  color:#6e647a;
+}
+.form-head__icon{
+  width: 44px; height: 44px;
+  border-radius: 14px;
+  background: var(--purple);
+  display:grid;
+  place-items:center;
+  box-shadow: 0 10px 20px rgba(142,131,169,.22);
+}
+.form-head__icon img{
+  width: 26px;             
+  height: 26px;             
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+}
+.form-head__title{
+  margin:0;
+  font-size: 16px;
+  font-weight: 800;
+  color:#6e647a;
+}
+
+/* Form card */
+.form-card{
+  background: rgba(255,255,255,.75);
+  border: 1px solid rgba(180, 170, 190, 0.25);
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+  padding: 18px 20px;
+  backdrop-filter: blur(8px);
+}
+
+.lbl{
+  display:block;
+  margin: 10px 0 8px;
+  color:#6a6175;
+  font-weight:600;
+  font-size: 13px;
+}
+.in, .ta{
+  width:100%;
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: 1px solid rgba(150,140,165,0.35);
+  outline:none;
+  background: rgba(255,255,255,0.92);
+  font-size: 13px;
+}
+.ta{ resize: vertical; }
+
+.send-btn{
+  width:100%;
+  margin-top: 14px;
+  padding: 12px 16px;
+  border-radius: 14px;
+  border: 0;
+  cursor:pointer;
+  background: var(--purple);
+  color:#fff;
+  font-weight:800;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap: 10px;
+  box-shadow: 0 10px 20px rgba(142,131,169,.22);
+}
+.send-btn:hover{ background: var(--purple-dark); }
+.send-ico{
+  width: 24px;             
+  height: 24px;             
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+}
+
+/* alerts */
+.alert{
+  margin: 10px 0 12px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  font-weight: 700;
+}
+.alert.success{ background: rgba(0, 160, 90, 0.10); color: #0a6a3d; border: 1px solid rgba(0,160,90,0.25); }
+.alert.error{ background: rgba(200, 0, 0, 0.08); color: #8a0f0f; border: 1px solid rgba(200,0,0,0.20); }
+
+@media (max-width: 900px){
+  .info-grid{ grid-template-columns: 1fr; }
+  .grid{ grid-template-columns: 1fr; direction: rtl; }
+}
