@@ -1,0 +1,19 @@
+:root{
+  --tayaqan-main:#8E83A9;
+  --tayaqan-dark:#70658f;
+  --tayaqan-soft:#e2dcd4;
+  --tayaqan-text:#2D2D2D;
+  --tayaqan-accent:#A695F7;
+
+  --container: 1120px;
+}
+
+/* خارج :root */
+.nav-logo{
+  height: 60px;   /* كبّري هنا */
+  width: auto;
+  display: block;
+}
+@media (max-width: 767px){
+  .nav-logo{ height: 45px; }
+}

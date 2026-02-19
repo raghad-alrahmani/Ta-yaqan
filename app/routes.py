@@ -1,4 +1,4 @@
-from flask import Blueprint
+from flask import Blueprint, render_template
 from app import db
 from app.models import VerifierUser
 
@@ -6,7 +6,7 @@ main = Blueprint("main", __name__)
 
 @main.route("/")
 def home():
-    return "Ta’yaqan is running 🚀"
+    return render_template("landing.html")
 
 @main.route("/add-test")
 def add_test():
@@ -24,3 +24,4 @@ def add_test():
     db.session.add(user)
     db.session.commit()
     return "Inserted ✅"
+
