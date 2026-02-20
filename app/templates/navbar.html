@@ -1,0 +1,116 @@
+<style>
+  :root{
+    --tayaqan-main:#8E83A9;
+    --tayaqan-dark:#7A7095;
+    --tayaqan-text:#2D2D2D;
+    --tayaqan-border:rgba(0,0,0,.06);
+    --tayaqan-navbg:#f4f2f6;
+  }
+
+  .navbar{
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: var(--tayaqan-navbg);
+    box-shadow: 0 1px 0 var(--tayaqan-border);
+  }
+
+  /* 👇 هنا الحل */
+  .navbar__row{
+    direction: ltr;   /* نثبت الاتجاه */
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 0 16px;
+    height: 78px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  /* يمين: اللوقو */
+  .navbar__brand{
+    display: flex;
+    align-items: center;
+  }
+
+  .nav-logo{
+    height: 68px;
+    width: auto;
+  }
+
+  /* يسار: زر + روابط */
+  .navbar__left{
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    direction: rtl; /* نخلي النصوص عربية صح */
+  }
+
+  .navbar__links{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .navbar__link{
+    text-decoration:none;
+    color: var(--tayaqan-text);
+    font-weight: 600;
+    font-size: 15px;
+    padding: 8px 6px;
+    border-radius: 10px;
+    transition: .2s;
+  }
+
+  .navbar__link:hover{
+    color: var(--tayaqan-main);
+  }
+
+  .navbar__btn{
+    padding: 8px 15px;
+    border-radius: 14px;
+    background: var(--tayaqan-main);
+    color: #fff;
+    font-weight: 700;
+    font-size: 14px;
+    text-decoration: none;
+    transition: .2s;
+  }
+
+  .navbar__btn:hover{
+    background: var(--tayaqan-dark);
+  }
+
+  @media (max-width: 820px){
+    .navbar__links{
+      display: none;
+    }
+    .nav-logo{
+      height: 54px;
+    }
+  }
+</style>
+
+<nav class="navbar">
+  <div class="navbar__row">
+
+    <!-- يسار -->
+    <div class="navbar__left">
+      <div class="navbar__links">
+        <a href="/" class="navbar__link">الرئيسية</a>
+        <a href="/about" class="navbar__link">من نحن</a>
+        <a href="/contact" class="navbar__link">تواصل معنا</a>
+      </div>
+
+      <a href="/auth" class="navbar__btn">تسجيل الدخول</a>
+    </div>
+
+    <!-- يمين -->
+    <a class="navbar__brand" href="/">
+      <img src="{{ url_for('static', filename='img/logo.png') }}" 
+           alt="Ta'yaqan Logo" 
+           class="nav-logo">
+    </a>
+
+  </div>
+</nav>
