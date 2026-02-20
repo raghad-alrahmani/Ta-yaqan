@@ -8,6 +8,10 @@ main = Blueprint("main", __name__)
 def home():
     return render_template("landing.html")
 
+@main.route("/about")
+def about():
+    return render_template("about.html")
+
 @main.route("/add-test")
 def add_test():
     email = "test@tayaqan.com"
