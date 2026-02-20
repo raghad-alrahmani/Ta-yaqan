@@ -35,6 +35,9 @@ def create_app():
     from app.routes import main
     app.register_blueprint(main)
 
+    from .auth_routes import auth
+    app.register_blueprint(auth)
+
     # ✅ إنشاء الجداول (مثل النسخة الأولى)
     with app.app_context():
         db.create_all()

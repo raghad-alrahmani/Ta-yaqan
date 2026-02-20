@@ -54,7 +54,7 @@
     </p>
 
     <div class="hero__actions">
-      <a class="btn btn--primary" href="/auth">
+      <a class="btn btn--primary" href="{{ url_for('auth.signup') }}">
         <span class="btn-text">ابدأ التحقق الآن</span>
         <img src="{{ url_for('static', filename='img/check.png') }}" class="btn-icon" alt="check">
       </a>

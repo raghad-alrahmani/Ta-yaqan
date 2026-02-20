@@ -1,0 +1,205 @@
+@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap');
+
+:root{
+  --tayaqan-main:#8E83A9;
+  --tayaqan-dark:#70658f;
+  --tayaqan-soft:#E8E3DC;
+  --tayaqan-text:#2D2D2D;
+  --bg:#f7f7f7;
+}
+
+body{
+  font-family:"Tajawal", sans-serif;
+  background: var(--bg);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.auth-wrap{
+  min-height: 100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding: 24px;
+}
+
+.auth-card{
+  width: min(1100px, 100%);
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  align-items: stretch;
+}
+
+.auth-left{
+  background: var(--tayaqan-main);
+  color: #fff;
+  border-radius: 20px;
+  padding: 42px;
+  box-shadow: 0 10px 25px rgba(0,0,0,.08);
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+
+.auth-logo{
+  width: 110px;
+  height: auto;
+  margin-bottom: 18px;
+  filter: brightness(0) invert(1);
+}
+
+.auth-left h2{
+  font-size: 26px;
+  margin: 0 0 12px;
+  font-weight: 900;
+}
+
+.auth-left p{
+  margin: 0 0 18px;
+  line-height: 1.8;
+  opacity: .95;
+}
+
+/* ✅ قائمة المميزات + check يمين */
+.auth-features{
+  list-style:none;
+  padding:0;
+  margin:0;
+}
+
+.auth-features li{
+  display:flex;
+  align-items:center;
+  justify-content:flex-start;
+  gap: 12px;
+  margin: 12px 0;
+  line-height: 1.7;
+}
+
+.auth-features li .check{
+  width: 34px;
+  height: 34px;
+  flex: 0 0 34px;
+  object-fit: contain;
+  opacity: .95;
+}
+
+/* ====================== Right card ====================== */
+.auth-right{
+  border-radius: 20px;
+  background:#fff;
+  padding: 42px;
+  box-shadow: 0 10px 25px rgba(0,0,0,.08);
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+
+.auth-right h3{
+  margin:0 0 8px;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--tayaqan-text);
+}
+
+.auth-right .sub{
+  margin:0 0 22px;
+  color:#666;
+  font-size: 14px;
+}
+
+.form-group{
+  margin-bottom: 16px;
+}
+
+label{
+  display:block;
+  margin-bottom:8px;
+  font-size: 14px;
+  color:#333;
+  font-weight: 700;
+}
+
+/* ✅ حقل + أيقونة داخل الحقل من اليمين */
+.input-wrap{
+  position: relative;
+}
+
+.field-icn{
+  position:absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 18px;
+  height: 18px;
+  opacity: .65;
+  pointer-events: none;
+}
+
+input{
+  width:100%;
+  padding: 12px 14px;
+  padding-right: 44px;  /* مساحة للأيقونة */
+  border: 2px solid var(--tayaqan-soft);
+  border-radius: 12px;
+  outline:none;
+  font-size: 14px;
+  display:block;
+}
+
+input::placeholder{
+  color:#9a9a9a;
+}
+
+input:focus{
+  border-color: var(--tayaqan-main);
+}
+
+.auth-btn{
+  margin-top: 6px;
+  width:100%;
+  padding: 14px;
+  border:0;
+  border-radius: 12px;
+  background: var(--tayaqan-main);
+  color:#fff;
+  font-weight: 900;
+  cursor:pointer;
+}
+
+.auth-btn:hover{
+  background: var(--tayaqan-dark);
+}
+
+.auth-foot{
+  margin-top: 16px;
+  font-size: 14px;
+  color:#555;
+  text-align: center;     
+}
+
+.auth-foot a{
+  color: var(--tayaqan-main);
+  text-decoration:none;
+  font-weight: 800;
+}
+
+.auth-foot a:hover{
+  color: var(--tayaqan-dark);
+}
+
+.alert{
+  padding: 12px 14px;
+  border-radius: 12px;
+  margin-bottom: 14px;
+  font-size: 14px;
+}
+.alert-success{ background:#e8fff1; color:#0a7a3c; border:1px solid #bff0d0; }
+.alert-error{ background:#ffecec; color:#b00020; border:1px solid #ffc1c7; }
+
+@media (max-width: 900px){
+  .auth-card{ grid-template-columns: 1fr; }
+}
