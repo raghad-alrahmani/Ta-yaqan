@@ -3,20 +3,15 @@ from app import db
 from app.models import VerifierUser
 
 import os
-from flask import Blueprint, render_template, request, redirect, url_for, flash
+from flask import request, redirect, url_for, flash
 from flask_mail import Message
 from . import mail
-
 
 main = Blueprint("main", __name__)
 
 @main.route("/")
 def home():
-
-return render_template("landing.html")
-
-
-
+    return render_template("landing.html")
 
 
 @main.route("/contact", methods=["GET", "POST"])
@@ -27,10 +22,7 @@ def contact():
         subject = request.form.get("subject", "").strip()
         message_text = request.form.get("message", "").strip()
 
-
-
-
-try:
+        try:
             receiver = os.getenv("CONTACT_RECEIVER") or os.getenv("MAIL_DEFAULT_SENDER")
 
             msg = Message(
@@ -50,15 +42,18 @@ try:
             flash("تم إرسال رسالتك بنجاح ✅", "success")
             return redirect(url_for("main.contact"))
 
-except Exception as e:
+        except Exception as e:
             flash(f"تعذر إرسال الرسالة ❌ — {str(e)}", "error")
             return redirect(url_for("main.contact"))
 
     # GET
-return render_template("contact.html")
+    return render_template("contact.html")
+
+
 @main.route("/about")
 def about():
     return render_template("about.html")
+
 
 @main.route("/add-test")
 def add_test():
@@ -76,4 +71,3 @@ def add_test():
     db.session.add(user)
     db.session.commit()
     return "Inserted ✅"
-
