@@ -13,7 +13,6 @@ main = Blueprint("main", __name__)
 def home():
     return render_template("landing.html")
 
-
 @main.route("/contact", methods=["GET", "POST"])
 def contact():
     if request.method == "POST":
@@ -54,6 +53,9 @@ def contact():
 def about():
     return render_template("about.html")
 
+@main.route("/upload")
+def upload():
+    return render_template("upload.html")
 
 @main.route("/add-test")
 def add_test():

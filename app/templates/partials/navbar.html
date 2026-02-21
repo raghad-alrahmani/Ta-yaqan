@@ -41,16 +41,34 @@
   color:var(--tayaqan-main);
 }
 .navbar__btn{
+  display:inline-block;
   padding:10px 20px;
   border-radius:14px;
-  background:var(--tayaqan-main);
-  color:#fff;
+  background:#8E83A9;
+  color:#fff !important;
   font-weight:800;
   text-decoration:none;
+  transition:0.2s ease;
 }
+
 .navbar__btn:hover{
-  background:var(--tayaqan-dark);
+  background:#6F5E8C;
+  color:#fff !important;
 }
+
+.navbar__btn--withIcon{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+}
+
+.navbar__btnIcon{
+  width:18px;
+  height:18px;
+  object-fit:contain;
+  filter: brightness(0) invert(1); /* يخلي الأيقونة بيضاء */
+}
+
 </style>
 
 <nav class="navbar">
@@ -71,12 +89,22 @@
 
     
     </a>
-
+    
     <div class="navbar__links">
       <a href="/" class="navbar__link">الرئيسية</a>
       <a href="/about" class="navbar__link">من نحن</a>
       <a href="/contact" class="navbar__link">تواصل معنا</a>
-      <a href="{{ url_for('auth.login') }}" class="navbar__btn">تسجيل الدخول</a>
+      
+
+      {% if session.get('user_id') %}
+        <a href="{{ url_for('auth.logout') }}" class="navbar__btn navbar__btn--withIcon">
+        <img src="{{ url_for('static', filename='img/logout.png') }}" alt="" class="navbar__btnIcon">
+      تسجيل الخروج
+        </a>
+      {% else %}
+        <a href="{{ url_for('auth.login') }}" class="navbar__btn">تسجيل الدخول</a>
+      {% endif %}
+
     </div>
 
   </div>

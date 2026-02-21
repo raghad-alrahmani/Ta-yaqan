@@ -25,7 +25,7 @@ def login_post():
     session["user_name"] = user.verifiername
 
     flash("تم تسجيل الدخول بنجاح ✅", "success")
-    return redirect(url_for("main.home"))
+    return redirect(url_for("main.upload"))
 
 
 @auth.get("/signup")
