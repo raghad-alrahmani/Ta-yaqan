@@ -284,8 +284,11 @@ body{
   background: var(--main);
   color:#fff;
   font-weight: 900;
-  cursor:not-allowed;
-  opacity:.55;
+  cursor:pointer;
+  opacity:1;
+}
+.yt__btn:hover{
+  background: var(--main2);
 }
 
 /* Responsive */
