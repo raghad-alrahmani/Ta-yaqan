@@ -1,4 +1,5 @@
-from flask import Blueprint, render_template, request, redirect, url_for, flash, current_app
+from flask import Blueprint, render_template, request, redirect, url_for, flash, current_app, session
+from werkzeug.utils import secure_filename
 from app import db
 from app.models import VerifierUser
 
@@ -37,7 +38,6 @@ def contact():
             )
             mail.send(msg)
 
-            # ✅ نخلي النجاح يظهر مرة واحدة بعد التحويل
             flash("تم إرسال رسالتك بنجاح ✅", "success")
             return redirect(url_for("main.contact"))
 
@@ -45,22 +45,20 @@ def contact():
             flash(f"تعذر إرسال الرسالة ❌ — {str(e)}", "error")
             return redirect(url_for("main.contact"))
 
-    # GET
     return render_template("contact.html")
-
 
 @main.route("/about")
 def about():
     return render_template("about.html")
 
-@main.route("/upload")
-def upload():
-    return render_template("upload.html")
-
+# ✅ خلي /upload مرة وحدة فقط
 @main.route("/upload", methods=["GET"])
 def upload():
     return render_template("upload.html")
 
+# =========================
+# ✅ (A) يوتيوب: زي ما هو عندك
+# =========================
 @main.route("/upload/youtube", methods=["POST"])
 def youtube_verify():
     youtube_url = request.form.get("youtube_url", "").strip()
@@ -68,17 +66,13 @@ def youtube_verify():
         flash("الرجاء إدخال رابط يوتيوب", "error")
         return redirect(url_for("main.upload"))
 
-    # فولدر حفظ الملفات داخل المشروع
     downloads_dir = os.path.join(current_app.root_path, "static", "uploads", "youtube")
     os.makedirs(downloads_dir, exist_ok=True)
 
-    # اسم ملف فريد
     file_id = str(uuid.uuid4())
     output_template = os.path.join(downloads_dir, f"{file_id}.%(ext)s")
-    output_mp3 = os.path.join(downloads_dir, f"{file_id}.mp3")
 
     try:
-        # أهم شيء: yt-dlp + ffmpeg
         cmd = [
             "yt-dlp",
             "-x",
@@ -93,13 +87,70 @@ def youtube_verify():
         flash("صار خطأ أثناء تحميل/تحويل اليوتيوب. تأكدي من ffmpeg و yt-dlp.", "error")
         return redirect(url_for("main.upload"))
 
-    # هنا: output_mp3 صار موجود
-    # ✅ الخطوة الجاية: نحفظ مساره بالـDB (بنفس جدول recitations عندكم)
-    # مثال (عدليه حسب موديلكم):
-    # rec = Recitation(user_id=session["user_id"], source="youtube", file_path=f"uploads/youtube/{file_id}.mp3")
+    flash("تم تحميل الصوت من اليوتيوب بنجاح ✅", "success")
+    return redirect(url_for("main.upload"))
+
+# =========================
+# ✅ (B) رفع ملف + تحويله MP3 باستخدام ffmpeg (الجديد)
+# =========================
+@main.route("/upload/file", methods=["POST"])
+def file_verify():
+    f = request.files.get("recitation_file")
+    if not f or f.filename.strip() == "":
+        flash("رجاءً اختاري ملف أولاً ❌", "error")
+        return redirect(url_for("main.upload"))
+
+    # فولدر حفظ الملفات
+    uploads_dir = os.path.join(current_app.root_path, "static", "uploads", "files")
+    os.makedirs(uploads_dir, exist_ok=True)
+
+    # اسم فريد + اسم نظيف
+    file_id = str(uuid.uuid4())
+    original_name = secure_filename(f.filename)
+    ext = os.path.splitext(original_name)[1].lower()
+
+    saved_path = os.path.join(uploads_dir, f"{file_id}{ext}")
+    f.save(saved_path)
+
+    # نطلع mp3 (حتى لو الملف صوت wav/m4a أو فيديو mp4)
+    mp3_path = os.path.join(uploads_dir, f"{file_id}.mp3")
+
+    try:
+        # لو الملف أصلاً mp3: ما يحتاج تحويل
+        if ext == ".mp3":
+            # نخليه هو نفسه mp3_path (نسخة) عشان توحيد المسار
+            if saved_path != mp3_path:
+                # على ويندوز هذا يضبط بدون مشاكل غالباً
+                with open(saved_path, "rb") as src, open(mp3_path, "wb") as dst:
+                    dst.write(src.read())
+        else:
+            # ✅ ffmpeg تحويل إلى mp3
+            cmd = [
+                "ffmpeg",
+                "-y",              # overwrite
+                "-i", saved_path,  # input
+                "-vn",             # no video
+                "-q:a", "2",       # جودة صوت ممتازة
+                mp3_path
+            ]
+            subprocess.run(cmd, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+
+    except subprocess.CalledProcessError:
+        flash("فشل تحويل الملف باستخدام ffmpeg ❌ تأكدي أن ffmpeg مثبت ومساره مضبوط.", "error")
+        return redirect(url_for("main.upload"))
+
+    # ✅ هنا تكتبين حفظ قاعدة البيانات (بعد اكتمال التحويل)
+    # مثال (عدليه على موديل recitation_inputs عندكم):
+    # rec = RecitationInputs(
+    #     verifierid=session.get("user_id"),
+    #     inputtype="file",
+    #     filepathorlink=f"uploads/files/{file_id}.mp3",
+    #     processingdate=datetime.utcnow(),
+    #     verificationstatus=True/False  # لاحقاً بعد التحقق
+    # )
     # db.session.add(rec); db.session.commit()
 
-    flash("تم تحميل الصوت من اليوتيوب بنجاح ✅", "success")
+    flash("تم رفع الملف وتحويله إلى MP3 بنجاح ✅", "success")
     return redirect(url_for("main.upload"))
 
 @main.route("/add-test")

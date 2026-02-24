@@ -97,21 +97,22 @@
         <p class="panel__sub">صيغ مدعومة: MP3, MP4, WAV, M4A</p>
 
         <!-- ✅ هذا أهم شي لرفع الملف -->
-        <form class="upload" method="POST" action="#" enctype="multipart/form-data">
+        <form class="upload" method="POST" action="{{ url_for('main.file_verify') }}" enctype="multipart/form-data">
           <input
             type="file"
             id="recitation_file"
             name="recitation_file"
             accept=".mp3,.mp4,.wav,.m4a,audio/*,video/*"
             hidden
+            required
           />
 
           <label class="upload__btn" for="recitation_file">اختر ملف</label>
 
           <div class="upload__hint" id="fileName">لم يتم اختيار ملف بعد</div>
 
-          <!-- لو تبين زر بدء التحقق لاحقاً -->
-          <!-- <button class="upload__submit" type="submit">بدء التحقق</button> -->
+        <!-- ✅ زر بدء التحقق (يرسل الملف) -->
+          <button class="upload__submit" type="submit">بدء التحقق</button>
         </form>
       </section>
 
