@@ -24,7 +24,7 @@ def login_post():
     session["user_id"] = user.verifierid
     session["user_name"] = user.verifiername
 
-    flash("تم تسجيل الدخول بنجاح ✅", "success")
+   pwd
     return redirect(url_for("main.upload"))
 
 
@@ -72,7 +72,6 @@ def signup_post():
 
     # تشفير كلمة المرور
     hashed = generate_password_hash(password)
-
     user = VerifierUser(
         verifiername=name,
         verifieremail=email,
@@ -81,8 +80,12 @@ def signup_post():
     db.session.add(user)
     db.session.commit()
 
-    flash("تم إنشاء الحساب بنجاح ✅ سجّل دخولك الآن", "success")
-    return redirect(url_for("auth.login"))
+    # ✅ تسجيل دخول تلقائي بعد إنشاء الحساب
+    session["user_id"] = user.verifierid
+    session["user_name"] = user.verifiername
+
+   
+    return redirect(url_for("main.upload"))
 
 
 @auth.get("/logout")
