@@ -24,7 +24,6 @@ def login_post():
     session["user_id"] = user.verifierid
     session["user_name"] = user.verifiername
 
-   pwd
     return redirect(url_for("main.upload"))
 
 
@@ -91,5 +90,4 @@ def signup_post():
 @auth.get("/logout")
 def logout():
     session.clear()
-    flash("تم تسجيل الخروج ✅", "success")
     return redirect(url_for("main.home"))

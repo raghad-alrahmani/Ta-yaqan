@@ -33,23 +33,29 @@
   height:16px;
 }
 
-/* HERO */
+
+/* HERO (match contact page exactly) */
 .about-hero{
-  background:var(--main);
-  padding:70px 0;
+  background: var(--main);
+  text-align: center;
+  padding: 44px 16px;   /* نفس contact */
 }
+
 .about-hero__inner{ text-align:center; }
+
 .about-hero__title{
-  margin:0 0 14px;
+  margin: 0 0 10px;
   color:#fff;
-  font-size:40px;
+  font-size: 18px;      /* نفس contact */
+  font-weight: 700;     /* نفس contact */
 }
+
 .about-hero__desc{
-  margin:0 auto;
-  color:rgba(255,255,255,0.82);
-  max-width:900px;
-  font-size:18px;
-  line-height:1.9;
+  margin: 0 auto;
+  color: rgba(255,255,255,.85);
+  font-size: 14px;      /* نفس contact */
+  line-height: 1.8;     /* نفس contact */
+  max-width: 750px;     /* نفس 느낌 contact */
 }
 
 /* Sections */

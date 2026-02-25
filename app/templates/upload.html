@@ -1,175 +1,156 @@
-<!doctype html>
-<html lang="ar" dir="rtl">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>تيقّن | رفع تلاوة</title>
+{% extends "base.html" %}
+{% block title %}تيقّن | رفع تلاوة{% endblock %}
+
+{% block head %}
   <link rel="stylesheet" href="{{ url_for('static', filename='css/upload.css') }}">
-</head>
-<body>
+{% endblock %}
 
-  {% include 'partials/navbar.html' %}
+{% block content %}
 
-  <div class="dash">
-    <!-- Sidebar (يمين) -->
-    <aside class="side">
-      <div class="side__top">
-        <div class="side__logo">
-          <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Ta'yaqan">
+<div class="dash">
+
+    <nav class="side__nav">
+      <!-- 1) رفع تلاوة -->
+      <a class="side__item side__item--active" href="#">
+        <span class="side__icon">
+          <img src="{{ url_for('static', filename='img/upload1.png') }}" alt="رفع تلاوة">
+        </span>
+        <span>رفع تلاوة</span>
+      </a>
+
+      <!-- 2) سجل التحقق -->
+      <a class="side__item" href="#">
+        <span class="side__icon">
+          <img src="{{ url_for('static', filename='img/history.png') }}" alt="سجل التحقق">
+        </span>
+        <span>سجل التحقق</span>
+      </a>
+
+      <!-- 3) التقارير -->
+      <a class="side__item" href="#">
+        <span class="side__icon">
+          <img src="{{ url_for('static', filename='img/reports.png') }}" alt="التقارير">
+        </span>
+        <span>التقارير</span>
+      </a>
+
+      <!-- 4) استماع للقرآن -->
+      <a class="side__item" href="#">
+        <span class="side__icon">
+          <img src="{{ url_for('static', filename='img/listen.png') }}" alt="استماع للقرآن">
+        </span>
+        <span>استماع للقرآن</span>
+      </a>
+    </nav>
+  </aside>
+
+  <!-- Main -->
+  <main class="main">
+    <div class="main__head">
+      <h1 class="main__title">رفع تلاوة للتحقق</h1>
+      <p class="main__sub">اختر طريقة الإدخال المناسبة لك</p>
+    </div>
+
+    <!-- Switch Cards (رابط يوتيوب / رفع ملف) -->
+    <div class="switch">
+      <button type="button" class="switch__card" id="btnYoutube">
+        <div class="switch__icon">
+          <img src="{{ url_for('static', filename='img/youtube.png') }}" alt="رابط يوتيوب">
         </div>
-        <div class="side__title">لوحة التحكم</div>
-      </div>
+        <div class="switch__text">
+          <div class="switch__title">رابط يوتيوب</div>
+          <div class="switch__desc">أدخل رابط التلاوة</div>
+        </div>
+      </button>
 
-      <nav class="side__nav">
-        <!-- 1) رفع تلاوة -->
-        <a class="side__item side__item--active" href="#">
-          <span class="side__icon">
-            <img src="{{ url_for('static', filename='img/upload1.png') }}" alt="رفع تلاوة">
-          </span>
-          <span>رفع تلاوة</span>
-        </a>
-
-        <!-- 2) سجل التحقق -->
-        <a class="side__item" href="#">
-          <span class="side__icon">
-            <img src="{{ url_for('static', filename='img/history.png') }}" alt="سجل التحقق">
-          </span>
-          <span>سجل التحقق</span>
-        </a>
-
-        <!-- 3) التقارير -->
-        <a class="side__item" href="#">
-          <span class="side__icon">
-            <img src="{{ url_for('static', filename='img/reports.png') }}" alt="التقارير">
-          </span>
-          <span>التقارير</span>
-        </a>
-
-        <!-- 4) استماع للقرآن -->
-        <a class="side__item" href="#">
-          <span class="side__icon">
-            <img src="{{ url_for('static', filename='img/listen.png') }}" alt="استماع للقرآن">
-          </span>
-          <span>استماع للقرآن</span>
-        </a>
-
-       
-      </nav>
-    </aside>
-
-    <!-- Main -->
-    <main class="main">
-      <div class="main__head">
-        <h1 class="main__title">رفع تلاوة للتحقق</h1>
-        <p class="main__sub">اختر طريقة الإدخال المناسبة لك</p>
-      </div>
-
-      <!-- Switch Cards (رابط يوتيوب / رفع ملف) -->
-      <div class="switch">
-        <button type="button" class="switch__card" id="btnYoutube">
-          <div class="switch__icon">
-            <img src="{{ url_for('static', filename='img/youtube.png') }}" alt="رابط يوتيوب">
-          </div>
-          <div class="switch__text">
-            <div class="switch__title">رابط يوتيوب</div>
-            <div class="switch__desc">أدخل رابط التلاوة</div>
-          </div>
-        </button>
-
-        <button type="button" class="switch__card switch__card--active" id="btnFile">
-          <div class="switch__icon">
-            <img src="{{ url_for('static', filename='img/file.png') }}" alt="رفع ملف">
-          </div>
-          <div class="switch__text">
-            <div class="switch__title">رفع ملف</div>
-            <div class="switch__desc">صوت أو فيديو</div>
-          </div>
-        </button>
-      </div>
-
-      <!-- Panels -->
-      <section class="panel panel--active" id="panelFile">
-        <div class="panel__icon">
+      <button type="button" class="switch__card switch__card--active" id="btnFile">
+        <div class="switch__icon">
           <img src="{{ url_for('static', filename='img/file.png') }}" alt="رفع ملف">
         </div>
-
-        <h3 class="panel__title">رفع ملف صوت أو فيديو</h3>
-        <p class="panel__sub">صيغ مدعومة: MP3, MP4, WAV, M4A</p>
-
-        <!-- ✅ هذا أهم شي لرفع الملف -->
-        <form class="upload" method="POST" action="{{ url_for('main.file_verify') }}" enctype="multipart/form-data">
-          <input
-            type="file"
-            id="recitation_file"
-            name="recitation_file"
-            accept=".mp3,.mp4,.wav,.m4a,audio/*,video/*"
-            hidden
-            required
-          />
-
-          <label class="upload__btn" for="recitation_file">اختر ملف</label>
-
-          <div class="upload__hint" id="fileName">لم يتم اختيار ملف بعد</div>
-
-        <!-- ✅ زر بدء التحقق (يرسل الملف) -->
-          <button class="upload__submit" type="submit">بدء التحقق</button>
-        </form>
-      </section>
-
-      <section class="panel" id="panelYoutube">
-        <div class="panel__icon">
-          <img src="{{ url_for('static', filename='img/youtube.png') }}" alt="يوتيوب">
+        <div class="switch__text">
+          <div class="switch__title">رفع ملف</div>
+          <div class="switch__desc">صوت أو فيديو</div>
         </div>
+      </button>
+    </div>
 
-        <h3 class="panel__title">ادخل رابط يوتيوب</h3>
-        <p class="panel__sub">الصق رابط التلاوة من يوتيوب هنا</p>
+    <!-- Panels -->
+    <section class="panel panel--active" id="panelFile">
+      <div class="panel__icon">
+        <img src="{{ url_for('static', filename='img/file.png') }}" alt="رفع ملف">
+      </div>
 
-        <form class="yt" method="POST" action="{{ url_for('main.youtube_verify') }}">
-          <input class="yt__input" type="url" name="youtube_url"
-                 placeholder="https://youtube.com/watch?v=..." required>
-          <button class="yt__btn" type="submit">بدء التحقق</button>
-        </form>
-      </section>
-    </main>
-  </div>
+      <h3 class="panel__title">رفع ملف صوت أو فيديو</h3>
+      <p class="panel__sub">صيغ مدعومة: MP3, MP4, WAV, M4A</p>
 
-  {% include 'partials/footer.html' %}
+      <form class="upload" method="POST" action="{{ url_for('main.file_verify') }}" enctype="multipart/form-data">
+        <input
+          type="file"
+          id="recitation_file"
+          name="recitation_file"
+          accept=".mp3,.mp4,.wav,.m4a,audio/*,video/*"
+          hidden
+          required
+        />
 
-  <script>
-    const btnFile = document.getElementById('btnFile');
-    const btnYoutube = document.getElementById('btnYoutube');
-    const panelFile = document.getElementById('panelFile');
-    const panelYoutube = document.getElementById('panelYoutube');
+        <label class="upload__btn" for="recitation_file">اختر ملف</label>
 
-    function activate(which) {
-      if (which === 'file') {
-        btnFile.classList.add('switch__card--active');
-        btnYoutube.classList.remove('switch__card--active');
-        panelFile.classList.add('panel--active');
-        panelYoutube.classList.remove('panel--active');
-      } else {
-        btnYoutube.classList.add('switch__card--active');
-        btnFile.classList.remove('switch__card--active');
-        panelYoutube.classList.add('panel--active');
-        panelFile.classList.remove('panel--active');
-      }
+        <div class="upload__hint" id="fileName">لم يتم اختيار ملف بعد</div>
+
+        <button class="upload__submit" type="submit">بدء التحقق</button>
+      </form>
+    </section>
+
+    <section class="panel" id="panelYoutube">
+      <div class="panel__icon">
+        <img src="{{ url_for('static', filename='img/youtube.png') }}" alt="يوتيوب">
+      </div>
+
+      <h3 class="panel__title">ادخل رابط يوتيوب</h3>
+      <p class="panel__sub">الصق رابط التلاوة من يوتيوب هنا</p>
+
+      <form class="yt" method="POST" action="{{ url_for('main.youtube_verify') }}">
+        <input class="yt__input" type="url" name="youtube_url"
+               placeholder="https://youtube.com/watch?v=..." required>
+        <button class="yt__btn" type="submit">بدء التحقق</button>
+      </form>
+    </section>
+  </main>
+</div>
+
+<script>
+  const btnFile = document.getElementById('btnFile');
+  const btnYoutube = document.getElementById('btnYoutube');
+  const panelFile = document.getElementById('panelFile');
+  const panelYoutube = document.getElementById('panelYoutube');
+
+  function activate(which) {
+    if (which === 'file') {
+      btnFile.classList.add('switch__card--active');
+      btnYoutube.classList.remove('switch__card--active');
+      panelFile.classList.add('panel--active');
+      panelYoutube.classList.remove('panel--active');
+    } else {
+      btnYoutube.classList.add('switch__card--active');
+      btnFile.classList.remove('switch__card--active');
+      panelYoutube.classList.add('panel--active');
+      panelFile.classList.remove('panel--active');
     }
+  }
 
-    btnFile.addEventListener('click', () => activate('file'));
-    btnYoutube.addEventListener('click', () => activate('youtube'));
+  btnFile.addEventListener('click', () => activate('file'));
+  btnYoutube.addEventListener('click', () => activate('youtube'));
 
-    // عرض اسم الملف بعد اختياره
-    const fileInput = document.getElementById('recitation_file');
-    const fileName = document.getElementById('fileName');
+  const fileInput = document.getElementById('recitation_file');
+  const fileName = document.getElementById('fileName');
 
-    fileInput.addEventListener('change', () => {
-      if (fileInput.files && fileInput.files.length > 0) {
-        fileName.textContent = fileInput.files[0].name;
-      } else {
-        fileName.textContent = 'لم يتم اختيار ملف بعد';
-      }
-    });
-  </script>
+  fileInput.addEventListener('change', () => {
+    if (fileInput.files && fileInput.files.length > 0) {
+      fileName.textContent = fileInput.files[0].name;
+    } else {
+      fileName.textContent = 'لم يتم اختيار ملف بعد';
+    }
+  });
+</script>
 
-</body>
-</html>
+{% endblock %}

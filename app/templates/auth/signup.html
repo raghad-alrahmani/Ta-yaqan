@@ -1,14 +1,12 @@
-<!doctype html>
-<html lang="ar" dir="rtl">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>تيقّن | إنشاء حساب</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/auth.css') }}">
-</head>
-<body>
-  {% include 'partials/navbar.html' %}
+{% extends "base.html" %}
+{% block title %}تيقّن | إنشاء حساب{% endblock %}
 
+{% block head %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/auth.css') }}">
+{% endblock %}
+
+{% block content %}
+<main class="auth-page">
   <div class="auth-wrap">
     <div class="auth-card">
 
@@ -46,18 +44,11 @@
         {% endwith %}
 
         <form method="POST" action="{{ url_for('auth.signup') }}">
-
           <div class="form-group">
             <label for="name">الاسم</label>
             <div class="input-wrap">
               <img class="field-icn" src="{{ url_for('static', filename='img/user.png') }}" alt="user">
-              <input
-                type="text"
-                id="name"
-                name="name"
-                required
-                maxlength="30"
-                placeholder="الاسم الكامل">
+              <input type="text" id="name" name="name" required maxlength="30" placeholder="الاسم الكامل">
             </div>
           </div>
 
@@ -65,13 +56,7 @@
             <label for="email">البريد الإلكتروني</label>
             <div class="input-wrap">
               <img class="field-icn" src="{{ url_for('static', filename='img/mail.png') }}" alt="mail">
-              <input
-                type="email"
-                id="email"
-                name="email"
-                required
-                maxlength="40"
-                placeholder="البريد الإلكتروني">
+              <input type="email" id="email" name="email" required maxlength="40" placeholder="البريد الإلكتروني">
             </div>
           </div>
 
@@ -79,27 +64,15 @@
             <label for="password">كلمة المرور</label>
             <div class="input-wrap">
               <img class="field-icn" src="{{ url_for('static', filename='img/lock.png') }}" alt="lock">
-              <input
-                type="password"
-                id="password"
-                name="password"
-                required
-                minlength="8"
-                placeholder="كلمة المرور">
+              <input type="password" id="password" name="password" required minlength="8" placeholder="كلمة المرور">
             </div>
           </div>
-          
+
           <div class="form-group">
             <label for="confirm_password">تأكيد كلمة المرور</label>
             <div class="input-wrap">
               <img class="field-icn" src="{{ url_for('static', filename='img/lock.png') }}" alt="lock">
-              <input
-                type="password"
-                id="confirm_password"
-                name="confirm_password"
-                required
-                minlength="8"
-                placeholder="تأكيد كلمة المرور">
+              <input type="password" id="confirm_password" name="confirm_password" required minlength="8" placeholder="تأكيد كلمة المرور">
             </div>
           </div>
 
@@ -111,7 +84,5 @@
 
     </div>
   </div>
-
-  {% include 'partials/footer.html' %}
-</body>
-</html>
+</main>
+{% endblock %}

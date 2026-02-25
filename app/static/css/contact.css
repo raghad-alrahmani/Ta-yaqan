@@ -1,11 +1,18 @@
-*{ box-sizing:border-box; }
-body{
-  margin:0;
-  font-family: system-ui, "Segoe UI", Tahoma, Arial;
+/* contact.css (scoped) */
+.contact-page *{ box-sizing:border-box; }
+
+.contact-page{
+  /* لا نلمس body ولا نغير الخط العام */
   color:#2d2d2d;
 }
 
-:root{
+/* بدل body نخليها داخل صفحة الكونتاكت */
+.contact-page{
+  margin:0;
+}
+
+/* متغيرات خاصة بالكونتاكت */
+.contact-page{
   --purple:#8E83A9;
   --purple-dark:#7A7095;
   --bg:#f6f3f7;
@@ -14,23 +21,23 @@ body{
   --shadow: 0 10px 28px rgba(20, 20, 30, 0.10);
 }
 
-.page-bg{
+.contact-page.page-bg{
   background: radial-gradient(circle at 30% 20%, #f7f2f5 0%, #f3eef2 35%, #f6f4f6 70%, #f4f1f4 100%);
 }
 
 /* HERO */
-.hero{
+.contact-page .hero{
   background: var(--purple);
   text-align:center;
   padding: 44px 16px;
 }
-.hero__title{
+.contact-page .hero__title{
   margin: 0 0 10px;
   color:#fff;
   font-size: 18px;
   font-weight: 700;
 }
-.hero__sub{
+.contact-page .hero__sub{
   margin:0;
   color: rgba(255,255,255,.85);
   font-size: 14px;
@@ -38,24 +45,24 @@ body{
 }
 
 /* layout */
-.container{
+.contact-page .container{
   width: min(1200px, 92%);
   margin: 0 auto;
   padding: 28px 0 40px;
 }
 
 /* info cards فوق */
-.info-grid{
-  direction: ltr;                
+.contact-page .info-grid{
+  direction: ltr;
   display:grid;
   grid-template-columns: 1fr 1fr;
   gap: 22px;
   margin-top: 12px;
   margin-bottom: 22px;
 }
-.info-grid > *{ direction: rtl; } 
+.contact-page .info-grid > *{ direction: rtl; }
 
-.info-card{
+.contact-page .info-card{
   background: rgba(255,255,255,.75);
   border: 1px solid rgba(180, 170, 190, 0.25);
   border-radius: 18px;
@@ -64,7 +71,7 @@ body{
   text-align:center;
   backdrop-filter: blur(8px);
 }
-.info-icon{
+.contact-page .info-icon{
   width: 56px;
   height: 56px;
   border-radius: 16px;
@@ -74,25 +81,25 @@ body{
   margin: 0 auto 10px;
   box-shadow: 0 10px 20px rgba(142,131,169,.22);
 }
-.info-icon img{
-  width: 34px;              /* ✅ كبرنا الأيقونة */
-  height: 34px;             /* ✅ كبرنا الأيقونة */
+.contact-page .info-icon img{
+  width: 34px;
+  height: 34px;
   object-fit: contain;
   filter: brightness(0) invert(1);
 }
-.info-title{
+.contact-page .info-title{
   color:#6e647a;
   font-weight:700;
   font-size: 14px;
   margin-bottom: 6px;
 }
-.info-value{
+.contact-page .info-value{
   color:#2d2d2d;
   font-size: 13px;
 }
 
 /* عنوان منتصف الصفحة */
-.mid-title{
+.contact-page .mid-title{
   text-align:center;
   color:#7a6f86;
   font-weight:700;
@@ -100,17 +107,17 @@ body{
 }
 
 /* main grid */
-.grid{
-  direction: ltr; /* ✅ هذا أهم سطر: يخلي FAQ يسار و الفورم يمين */
+.contact-page .grid{
+  direction: ltr;
   display:grid;
   grid-template-columns: 1.1fr 0.9fr;
   gap: 22px;
   align-items:start;
 }
-.grid > *{ direction: rtl; } /* نخلي النص عربي داخل الأقسام */
+.contact-page .grid > *{ direction: rtl; }
 
 /* FAQ cards */
-.faq-card{
+.contact-page .faq-card{
   background: rgba(255,255,255,.75);
   border: 1px solid rgba(180, 170, 190, 0.25);
   border-radius: 18px;
@@ -119,7 +126,7 @@ body{
   backdrop-filter: blur(8px);
   margin-bottom: 16px;
 }
-.faq-q{
+.contact-page .faq-q{
   display:flex;
   align-items:flex-start;
   gap: 8px;
@@ -128,42 +135,42 @@ body{
   font-size: 14px;
   margin-bottom: 8px;
 }
-.dot{ color: var(--purple); }
-.faq-a{
+.contact-page .dot{ color: var(--purple); }
+.contact-page .faq-a{
   margin:0;
   line-height:1.9;
   color:#5a5a5a;
   font-size: 13px;
 }
 
-/* Help card (الرمادي الكبير تحت يسار) */
-.help-card{
+/* Help card */
+.contact-page .help-card{
   background: rgba(240, 235, 244, 0.85);
   border: 1px solid rgba(180, 170, 190, 0.25);
   border-radius: 18px;
   box-shadow: var(--shadow);
   padding: 18px 20px;
 }
-.help-title{
+.contact-page .help-title{
   margin:0 0 8px;
   text-align:center;
   color:#6e647a;
   font-size: 14px;
 }
-.help-text{
+.contact-page .help-text{
   margin:0;
   text-align:center;
   color:#5a5a5a;
   font-size: 13px;
   line-height:1.8;
 }
-.help-actions{
+.contact-page .help-actions{
   display:flex;
   gap: 10px;
   justify-content:center;
   margin-top: 14px;
 }
-.help-btn{
+.contact-page .help-btn{
   display:inline-flex;
   align-items:center;
   gap: 8px;
@@ -174,26 +181,26 @@ body{
   font-size: 13px;
   border: 1px solid transparent;
 }
-.help-btn .btn-ico{
-  width: 22px;              
-  height: 22px;            
+.contact-page .help-btn .btn-ico{
+  width: 22px;
+  height: 22px;
   object-fit:contain;
 }
-.help-btn.outline{
+.contact-page .help-btn.outline{
   background:#fff;
   border-color: var(--purple);
   color: var(--purple);
 }
-.help-btn.solid{
+.contact-page .help-btn.solid{
   background: var(--purple);
   color:#fff;
 }
-.help-btn.solid .btn-ico{
+.contact-page .help-btn.solid .btn-ico{
   filter: brightness(0) invert(1);
 }
 
 /* Form header */
-.form-head{
+.contact-page .form-head{
   display:flex;
   align-items:center;
   justify-content:flex-start;
@@ -201,7 +208,7 @@ body{
   margin-bottom: 12px;
   color:#6e647a;
 }
-.form-head__icon{
+.contact-page .form-head__icon{
   width: 44px; height: 44px;
   border-radius: 14px;
   background: var(--purple);
@@ -209,13 +216,13 @@ body{
   place-items:center;
   box-shadow: 0 10px 20px rgba(142,131,169,.22);
 }
-.form-head__icon img{
-  width: 26px;             
-  height: 26px;             
+.contact-page .form-head__icon img{
+  width: 26px;
+  height: 26px;
   object-fit: contain;
   filter: brightness(0) invert(1);
 }
-.form-head__title{
+.contact-page .form-head__title{
   margin:0;
   font-size: 16px;
   font-weight: 800;
@@ -223,7 +230,7 @@ body{
 }
 
 /* Form card */
-.form-card{
+.contact-page .form-card{
   background: rgba(255,255,255,.75);
   border: 1px solid rgba(180, 170, 190, 0.25);
   border-radius: 18px;
@@ -232,14 +239,15 @@ body{
   backdrop-filter: blur(8px);
 }
 
-.lbl{
+.contact-page .lbl{
   display:block;
   margin: 10px 0 8px;
   color:#6a6175;
   font-weight:600;
   font-size: 13px;
 }
-.in, .ta{
+.contact-page .in,
+.contact-page .ta{
   width:100%;
   padding: 12px 14px;
   border-radius: 14px;
@@ -248,9 +256,9 @@ body{
   background: rgba(255,255,255,0.92);
   font-size: 13px;
 }
-.ta{ resize: vertical; }
+.contact-page .ta{ resize: vertical; }
 
-.send-btn{
+.contact-page .send-btn{
   width:100%;
   margin-top: 14px;
   padding: 12px 16px;
@@ -266,25 +274,25 @@ body{
   gap: 10px;
   box-shadow: 0 10px 20px rgba(142,131,169,.22);
 }
-.send-btn:hover{ background: var(--purple-dark); }
-.send-ico{
-  width: 24px;             
-  height: 24px;             
+.contact-page .send-btn:hover{ background: var(--purple-dark); }
+.contact-page .send-ico{
+  width: 24px;
+  height: 24px;
   object-fit: contain;
   filter: brightness(0) invert(1);
 }
 
 /* alerts */
-.alert{
+.contact-page .alert{
   margin: 10px 0 12px;
   padding: 12px 14px;
   border-radius: 14px;
   font-weight: 700;
 }
-.alert.success{ background: rgba(0, 160, 90, 0.10); color: #0a6a3d; border: 1px solid rgba(0,160,90,0.25); }
-.alert.error{ background: rgba(200, 0, 0, 0.08); color: #8a0f0f; border: 1px solid rgba(200,0,0,0.20); }
+.contact-page .alert.success{ background: rgba(0, 160, 90, 0.10); color: #0a6a3d; border: 1px solid rgba(0,160,90,0.25); }
+.contact-page .alert.error{ background: rgba(200, 0, 0, 0.08); color: #8a0f0f; border: 1px solid rgba(200,0,0,0.20); }
 
 @media (max-width: 900px){
-  .info-grid{ grid-template-columns: 1fr; }
-  .grid{ grid-template-columns: 1fr; direction: rtl; }
+  .contact-page .info-grid{ grid-template-columns: 1fr; }
+  .contact-page .grid{ grid-template-columns: 1fr; direction: rtl; }
 }

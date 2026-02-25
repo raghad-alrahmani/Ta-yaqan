@@ -1,16 +1,15 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>تواصل معنا - تيقّن</title>
+{% extends "base.html" %}
+
+{% block title %}تواصل معنا - تيقّن{% endblock %}
+
+{% block head %}
   <link rel="stylesheet" href="{{ url_for('static', filename='css/contact.css') }}">
-</head>
+{% endblock %}
 
-<body class="page-bg">
-  {% include 'navbar.html' %}
+{% block content %}
+<div class="contact-page page-bg">
 
-  <!-- HERO (البنفسجي اللي فوق) -->
+  <!-- HERO -->
   <section class="hero">
     <h1 class="hero__title">تواصل معنا</h1>
     <p class="hero__sub">
@@ -111,14 +110,14 @@
         </div>
 
         {% with messages = get_flashed_messages(with_categories=true) %}
-  {% if messages %}
-    {% for category, msg in messages %}
-      <div class="alert {{ 'success' if category == 'success' else 'error' }}" id="flash-msg">
-        {{ msg }}
-      </div>
-    {% endfor %}
-  {% endif %}
-{% endwith %}
+          {% if messages %}
+            {% for category, msg in messages %}
+              <div class="alert {{ 'success' if category == 'success' else 'error' }} flash-msg">
+                {{ msg }}
+              </div>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
 
         <form class="form-card" method="POST" action="{{ url_for('main.contact') }}">
           <label class="lbl">الاسم</label>
@@ -142,17 +141,16 @@
     </section>
   </main>
 
-  {% include 'footer.html' %}
   <script>
-  const flashMsg = document.getElementById('flash-msg');
-  if (flashMsg) {
-    setTimeout(() => {
-      flashMsg.style.transition = 'opacity .4s ease, transform .4s ease';
-      flashMsg.style.opacity = '0';
-      flashMsg.style.transform = 'translateY(-6px)';
-      setTimeout(() => flashMsg.remove(), 450);
-    }, 2500); // المدة اللي تبينها
-  }
-</script>
-</body>
-</html>
+    document.querySelectorAll('.flash-msg').forEach((el) => {
+      setTimeout(() => {
+        el.style.transition = 'opacity .4s ease, transform .4s ease';
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(-6px)';
+        setTimeout(() => el.remove(), 450);
+      }, 2500);
+    });
+  </script>
+
+</div>
+{% endblock %}
