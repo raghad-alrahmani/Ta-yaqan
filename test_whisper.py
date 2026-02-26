@@ -2,7 +2,7 @@ import whisper
 
 model = whisper.load_model("base")
 
-result = model.transcribe("downloads/pUb9EW770d0.mp3", language="ar")
+result = model.transcribe("downloads/audio0.wav", language="ar")
 
 print("النص الكامل:\n")
 print(result["text"])
