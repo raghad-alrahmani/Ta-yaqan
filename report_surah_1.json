@@ -1,0 +1,1839 @@
+{
+  "surah_no": 1,
+  "audio_path": "downloads/naziat_pad.wav",
+  "duration": 273.25660416666665,
+  "transcribe_time": 120.26,
+  "reference_text_from_db": "بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ الرَّحْمَـٰنِ الرَّحِيمِ مَالِكِ يَوْمِ الدِّينِ إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ اهْدِنَا الصِّرَاطَ الْمُسْتَقِيمَ صِرَاطَ الَّذِينَ أَنْعَمْتَ عَلَيْهِمْ غَيْرِ الْمَغْضُوبِ عَلَيْهِمْ وَلَا الضَّالِّينَ",
+  "report": {
+    "summary": {
+      "total_words": 29,
+      "correct": 5,
+      "addition": 153,
+      "deletion": 0,
+      "substitution": 24,
+      "is_valid": false
+    },
+    "rows": [
+      {
+        "status": "correct",
+        "type": null,
+        "expected": "بسم",
+        "actual": "بسم",
+        "time": 0.0,
+        "ayah_number": 1,
+        "ref_index": 0,
+        "hyp_index": 0
+      },
+      {
+        "status": "correct",
+        "type": null,
+        "expected": "الله",
+        "actual": "الله",
+        "time": 0.82,
+        "ayah_number": 1,
+        "ref_index": 1,
+        "hyp_index": 1
+      },
+      {
+        "status": "correct",
+        "type": null,
+        "expected": "الرحمن",
+        "actual": "الرحمن",
+        "time": 1.6,
+        "ayah_number": 1,
+        "ref_index": 2,
+        "hyp_index": 2
+      },
+      {
+        "status": "correct",
+        "type": null,
+        "expected": "الرحيم",
+        "actual": "الرحيم",
+        "time": 2.8,
+        "ayah_number": 1,
+        "ref_index": 3,
+        "hyp_index": 3
+      },
+      {
+        "status": "error",
+        "type": "substitution",
+        "expected": "الحمد",
+        "actual": "والنازعات",
+        "time": 8.44,
+        "ayah_number": 2,
+        "ref_index": 4,
+        "hyp_index": 4
+      },
+      {
+        "status": "error",
+        "type": "substitution",
+        "expected": "لله",
+        "actual": "غرقا",
+        "time": 9.84,
+        "ayah_number": 2,
+        "ref_index": 5,
+        "hyp_index": 5
+      },
+      {
+        "status": "error",
+        "type": "substitution",
+        "expected": "رب",
+        "actual": "والناشطات",
+        "time": 11.24,
+        "ayah_number": 2,
+        "ref_index": 6,
+        "hyp_index": 6
+      },
+      {
+        "status": "error",
+        "type": "substitution",
+        "expected": "العالمين",
+        "actual": "نشطا",
+        "time": 13.76,
+        "ayah_number": 2,
+        "ref_index": 7,
+        "hyp_index": 7
+      },
+      {
+        "status": "error",
+        "type": "substitution",
+        "expected": "الرحمن",
+        "actual": "والسابحات",
+        "time": 15.62,
+        "ayah_number": 3,
+        "ref_index": 8,
+        "hyp_index": 8
+      },
+      {
+        "status": "error",
+        "type": "substitution",
+        "expected": "الرحيم",
+        "actual": "سبحا",
+        "time": 17.32,
+        "ayah_number": 3,
+        "ref_index": 9,
+        "hyp_index": 9
+      },
+      {
+        "status": "error",
+        "type": "substitution",
+        "expected": "مالك",
+        "actual": "فالسابقات",
+        "time": 19.0,
+        "ayah_number": 4,
+        "ref_index": 10,
+        "hyp_index": 10
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "سبقا",
+        "time": 20.84,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 11
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "فالمدبرات",
+        "time": 22.66,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 12
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "امرا",
+        "time": 24.6,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 13
+      },
+      {
+        "status": "correct",
+        "type": null,
+        "expected": "يوم",
+        "actual": "يوم",
+        "time": 26.18,
+        "ayah_number": 4,
+        "ref_index": 11,
+        "hyp_index": 14
+      },
+      {
+        "status": "error",
+        "type": "substitution",
+        "expected": "الدين",
+        "actual": "ترجف",
+        "time": 27.06,
+        "ayah_number": 4,
+        "ref_index": 12,
+        "hyp_index": 15
+      },
+      {
+        "status": "error",
+        "type": "substitution",
+        "expected": "اياك",
+        "actual": "الراجفة",
+        "time": 28.04,
+        "ayah_number": 5,
+        "ref_index": 13,
+        "hyp_index": 16
+      },
+      {
+        "status": "error",
+        "type": "substitution",
+        "expected": "نعبد",
+        "actual": "تتبعها",
+        "time": 30.26,
+        "ayah_number": 5,
+        "ref_index": 14,
+        "hyp_index": 17
+      },
+      {
+        "status": "error",
+        "type": "substitution",
+        "expected": "واياك",
+        "actual": "الرادفة",
+        "time": 31.42,
+        "ayah_number": 5,
+        "ref_index": 15,
+        "hyp_index": 18
+      },
+      {
+        "status": "error",
+        "type": "substitution",
+        "expected": "نستعين",
+        "actual": "قلوب",
+        "time": 33.61,
+        "ayah_number": 5,
+        "ref_index": 16,
+        "hyp_index": 19
+      },
+      {
+        "status": "error",
+        "type": "substitution",
+        "expected": "اهدنا",
+        "actual": "يومئذ",
+        "time": 34.69,
+        "ayah_number": 6,
+        "ref_index": 17,
+        "hyp_index": 20
+      },
+      {
+        "status": "error",
+        "type": "substitution",
+        "expected": "الصراط",
+        "actual": "واجفة",
+        "time": 37.67,
+        "ayah_number": 6,
+        "ref_index": 18,
+        "hyp_index": 21
+      },
+      {
+        "status": "error",
+        "type": "substitution",
+        "expected": "المستقيم",
+        "actual": "ابصارها",
+        "time": 39.92,
+        "ayah_number": 6,
+        "ref_index": 19,
+        "hyp_index": 22
+      },
+      {
+        "status": "error",
+        "type": "substitution",
+        "expected": "صراط",
+        "actual": "خاشعة",
+        "time": 41.48,
+        "ayah_number": 7,
+        "ref_index": 20,
+        "hyp_index": 23
+      },
+      {
+        "status": "error",
+        "type": "substitution",
+        "expected": "الذين",
+        "actual": "يقولون",
+        "time": 43.46,
+        "ayah_number": 7,
+        "ref_index": 21,
+        "hyp_index": 24
+      },
+      {
+        "status": "error",
+        "type": "substitution",
+        "expected": "انعمت",
+        "actual": "اانا",
+        "time": 44.94,
+        "ayah_number": 7,
+        "ref_index": 22,
+        "hyp_index": 25
+      },
+      {
+        "status": "error",
+        "type": "substitution",
+        "expected": "عليهم",
+        "actual": "لمردودون",
+        "time": 46.96,
+        "ayah_number": 7,
+        "ref_index": 23,
+        "hyp_index": 26
+      },
+      {
+        "status": "error",
+        "type": "substitution",
+        "expected": "غير",
+        "actual": "في",
+        "time": 48.86,
+        "ayah_number": 7,
+        "ref_index": 24,
+        "hyp_index": 27
+      },
+      {
+        "status": "error",
+        "type": "substitution",
+        "expected": "المغضوب",
+        "actual": "الحافرة",
+        "time": 49.16,
+        "ayah_number": 7,
+        "ref_index": 25,
+        "hyp_index": 28
+      },
+      {
+        "status": "error",
+        "type": "substitution",
+        "expected": "عليهم",
+        "actual": "ائذا",
+        "time": 50.54,
+        "ayah_number": 7,
+        "ref_index": 26,
+        "hyp_index": 29
+      },
+      {
+        "status": "error",
+        "type": "substitution",
+        "expected": "ولا",
+        "actual": "كنا",
+        "time": 52.2,
+        "ayah_number": 7,
+        "ref_index": 27,
+        "hyp_index": 30
+      },
+      {
+        "status": "error",
+        "type": "substitution",
+        "expected": "الضالين",
+        "actual": "عظاما",
+        "time": 53.54,
+        "ayah_number": 7,
+        "ref_index": 28,
+        "hyp_index": 31
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "نخره",
+        "time": 55.6,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 32
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "قالوا",
+        "time": 57.38,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 33
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "تلك",
+        "time": 58.28,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 34
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "اذا",
+        "time": 58.88,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 35
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "كرة",
+        "time": 59.92,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 36
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "خاسرة",
+        "time": 61.4,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 37
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "فانما",
+        "time": 64.66,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 38
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "هي",
+        "time": 66.06,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 39
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "زجرة",
+        "time": 66.46,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 40
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "واحدة",
+        "time": 67.48,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 41
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "فاذا",
+        "time": 70.54,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 42
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "هم",
+        "time": 71.48,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 43
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "بالساهرة",
+        "time": 73.04,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 44
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "هل",
+        "time": 74.67,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 45
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "اتاك",
+        "time": 75.83,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 46
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "حديث",
+        "time": 76.69,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 47
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "موسى",
+        "time": 77.59,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 48
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "اذ",
+        "time": 78.65,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 49
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "ناداه",
+        "time": 79.95,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 50
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "ربه",
+        "time": 80.89,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 51
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "بالواد",
+        "time": 82.07,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 52
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "المقدس",
+        "time": 83.23,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 53
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "طوا",
+        "time": 84.55,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 54
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "اذهب",
+        "time": 85.53,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 55
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "الى",
+        "time": 87.13,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 56
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "فرعون",
+        "time": 87.75,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 57
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "انه",
+        "time": 88.83,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 58
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "طغ",
+        "time": 90.69,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 59
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "فقل",
+        "time": 91.61,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 60
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "هل",
+        "time": 93.21,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 61
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "لك",
+        "time": 93.87,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 62
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "الى",
+        "time": 94.21,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 63
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "ان",
+        "time": 94.75,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 64
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "تزكى",
+        "time": 97.31,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 65
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "واهديك",
+        "time": 99.57,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 66
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "الى",
+        "time": 100.89,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 67
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "ربك",
+        "time": 101.59,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 68
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "فتخشى",
+        "time": 102.49,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 69
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "فاراه",
+        "time": 104.77,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 70
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "الاية",
+        "time": 105.91,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 71
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "الكبر",
+        "time": 106.91,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 72
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "فكذب",
+        "time": 107.96,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 73
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "وعصا",
+        "time": 110.26,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 74
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "ثم",
+        "time": 112.14,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 75
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "ادبر",
+        "time": 113.68,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 76
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "يسعا",
+        "time": 114.6,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 77
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "فحشر",
+        "time": 116.6,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 78
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "فنادا",
+        "time": 117.48,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 79
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "فقال",
+        "time": 119.06,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 80
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "انا",
+        "time": 120.56,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 81
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "ربكم",
+        "time": 121.08,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 82
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "الاعلى",
+        "time": 122.28,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 83
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "فاخذه",
+        "time": 123.58,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 84
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "الله",
+        "time": 125.38,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 85
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "نكان",
+        "time": 126.4,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 86
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "الاخرة",
+        "time": 127.28,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 87
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "والاولى",
+        "time": 128.72,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 88
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "ان",
+        "time": 130.9,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 89
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "في",
+        "time": 132.28,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 90
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "ذلك",
+        "time": 132.96,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 91
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "لعبرة",
+        "time": 133.78,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 92
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "لمن",
+        "time": 134.98,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 93
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "يخشى",
+        "time": 136.54,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 94
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "انتم",
+        "time": 139.46,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 95
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "اشد",
+        "time": 140.86,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 96
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "خلقا",
+        "time": 142.16,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 97
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "امي",
+        "time": 142.9,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 98
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "السمى",
+        "time": 143.4,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 99
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "بناها",
+        "time": 147.12,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 100
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "رفع",
+        "time": 149.54,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 101
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "سمكها",
+        "time": 150.32,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 102
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "فسواها",
+        "time": 151.46,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 103
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "واغطش",
+        "time": 153.98,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 104
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "ليلها",
+        "time": 155.04,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 105
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "واخرج",
+        "time": 156.22,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 106
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "ضحاها",
+        "time": 157.32,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 107
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "والارض",
+        "time": 159.52,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 108
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "بعد",
+        "time": 160.68,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 109
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "ذلك",
+        "time": 161.4,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 110
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "دحاها",
+        "time": 162.18,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 111
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "اخرج",
+        "time": 164.42,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 112
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "منها",
+        "time": 165.28,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 113
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "ما",
+        "time": 166.82,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 114
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "ومرعاها",
+        "time": 170.0,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 115
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "والجبال",
+        "time": 171.4,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 116
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "ارساها",
+        "time": 172.9,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 117
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "متاعا",
+        "time": 174.9,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 118
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "لكم",
+        "time": 176.6,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 119
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "ولانعامكم",
+        "time": 177.18,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 120
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "فاذا",
+        "time": 180.14,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 121
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "جاءت",
+        "time": 181.14,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 122
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "الطامة",
+        "time": 183.3,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 123
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "الكبرى",
+        "time": 188.2,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 124
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "يوم",
+        "time": 190.36,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 125
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "يتذكر",
+        "time": 190.94,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 126
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "الانسان",
+        "time": 192.32,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 127
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "ما",
+        "time": 194.42,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 128
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "سعى",
+        "time": 194.8,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 129
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "وبرزت",
+        "time": 196.56,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 130
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "الجحيم",
+        "time": 197.94,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 131
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "لمن",
+        "time": 199.04,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 132
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "يرى",
+        "time": 200.46,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 133
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "فاما",
+        "time": 202.24,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 134
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "من",
+        "time": 204.04,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 135
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "طغ",
+        "time": 205.04,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 136
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "واثر",
+        "time": 207.04,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 137
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "الحياة",
+        "time": 208.32,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 138
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "الدنيا",
+        "time": 209.58,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 139
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "فان",
+        "time": 211.4,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 140
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "الجحيم",
+        "time": 213.28,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 141
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "هي",
+        "time": 214.4,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 142
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "الماوى",
+        "time": 214.88,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 143
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "واما",
+        "time": 216.82,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 144
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "من",
+        "time": 219.08,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 145
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "خاف",
+        "time": 219.44,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 146
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "مقام",
+        "time": 220.08,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 147
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "ربه",
+        "time": 221.2,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 148
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "ونهى",
+        "time": 222.22,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 149
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "النفس",
+        "time": 223.96,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 150
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "عمي",
+        "time": 224.72,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 151
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "الهوى",
+        "time": 225.02,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 152
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "فان",
+        "time": 226.78,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 153
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "الجنة",
+        "time": 228.6,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 154
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "هي",
+        "time": 230.88,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 155
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "الماوى",
+        "time": 231.4,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 156
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "يسالونك",
+        "time": 233.46,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 157
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "عن",
+        "time": 234.86,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 158
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "الساعة",
+        "time": 235.18,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 159
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "ايان",
+        "time": 236.4,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 160
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "مرساها",
+        "time": 237.5,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 161
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "فيهم",
+        "time": 240.04,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 162
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "انت",
+        "time": 240.58,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 163
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "من",
+        "time": 242.24,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 164
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "ذكراها",
+        "time": 243.28,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 165
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "الى",
+        "time": 244.82,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 166
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "ربك",
+        "time": 246.1,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 167
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "منتهاها",
+        "time": 247.14,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 168
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "انما",
+        "time": 252.36,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 169
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "انت",
+        "time": 253.76,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 170
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "منذر",
+        "time": 255.16,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 171
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "من",
+        "time": 256.8,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 172
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "يخشاها",
+        "time": 257.64,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 173
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "كانهم",
+        "time": 261.12,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 174
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "يوم",
+        "time": 262.52,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 175
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "يرونها",
+        "time": 263.1,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 176
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "لم",
+        "time": 264.5,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 177
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "يلبثوا",
+        "time": 264.96,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 178
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "الا",
+        "time": 267.8,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 179
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "عشية",
+        "time": 268.62,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 180
+      },
+      {
+        "status": "error",
+        "type": "addition",
+        "expected": null,
+        "actual": "اوضحاها",
+        "time": 269.96,
+        "ayah_number": null,
+        "ref_index": null,
+        "hyp_index": 181
+      }
+    ]
+  }
+}
