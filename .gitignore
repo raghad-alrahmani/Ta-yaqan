@@ -2,9 +2,9 @@
 __pycache__/
 .env
 # Ignore local media files
-downloads/
-*.wav
-*.mp3
-*.webm
-*.mkv
-*.mp4
+# downloads/
+#*.wav
+#*.mp3
+#*.webm
+#*.mkv
+#*.mp4
