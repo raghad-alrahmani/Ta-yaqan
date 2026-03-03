@@ -445,7 +445,6 @@ def main():
     ])
     clean_text = re.sub(r"\s+", " ", clean_text).strip()
 
-    # ✅ Tail Rescue (إنقاذ النهاية إذا آخر آية ناقصة)
     with app.app_context():
         ayat = get_surah_ayat_from_db(detected_surah)
     last_ayah_text = ayat[-1][1] if ayat else ""
