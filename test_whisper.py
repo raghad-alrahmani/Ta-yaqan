@@ -268,11 +268,38 @@ def print_segment_words(s):
         print(f"[{cs:.2f} - {ce:.2f}] {' '.join(chunk)}")
 
 
+def transcribe_tail(model, audio_path, tail_seconds=80):
+    dur = get_audio_duration(audio_path)
+    start = max(0.0, dur - tail_seconds)
+
+    with tempfile.TemporaryDirectory() as td:
+        tail_wav = os.path.join(td, "tail.wav")
+        cut_audio(audio_path, start, dur, tail_wav)
+
+        tail_kwargs = dict(
+            language="ar",
+            beam_size=10,
+            temperature=0.0,
+            best_of=1,
+            condition_on_previous_text=False,
+            word_timestamps=False,      # ✅ كان True
+            vad_filter=False,           # مهم: لا VAD في النهاية
+            chunk_length=30,
+            no_speech_threshold=0.0,    # ✅ كان 0.05
+            log_prob_threshold=-1.0,    # ✅ جديد (لتقليل إسقاط النهاية)
+            compression_ratio_threshold=2.4,  # ✅ جديد
+            initial_prompt="تلاوة قرآن كريم باللغة العربية الفصحى، أكمل التلاوة حتى النهاية بدون اختصار.",
+        )
+
+        tail_segments, _ = model.transcribe(tail_wav, **tail_kwargs)
+        tail_segments = list(tail_segments)
+        return " ".join([s.text.strip() for s in tail_segments]).strip()
+
 # ----------------------------
 # Main: RAW / CLEAN (بدون طباعة DB)
 # ----------------------------
 def main():
-    audio_path = "downloads/naziat1_pad.wav"  # ✅ غيري الملف هنا فقط
+    audio_path = "downloads/N.wav"  # ✅ غيري الملف هنا فقط
 
     app = create_app()
     model = WhisperModel("medium", device="cpu", compute_type="int8")
@@ -283,21 +310,30 @@ def main():
     # ✅ أهم تعديل: نخلي condition_on_previous_text=False (أثبت للقرآن)
     kwargs = dict(
         language="ar",
-        beam_size=8,
+        beam_size=10,
         temperature=0.0,
         best_of=1,
         condition_on_previous_text=False,
         word_timestamps=True,
-        initial_prompt="تلاوة قرآن كريم باللغة العربية الفصحى، الكلمات كاملة بدون اختصار.",
+        initial_prompt="تلاوة قرآن كريم باللغة العربية الفصحى، مع نطق واضح لكل الكلمات بدون اختصار.",
+        chunk_length=30,
+        no_speech_threshold=0.15,
     )
 
-    # ✅ VAD يشتغل فعليًا فقط إذا use_vad=True
+    # ✅ VAD يشتغل فقط إذا المقطع طويل
     if use_vad:
+        pad = 3500 if duration < 8*60 else 1800  # أقل للسور الطويلة جدًا
         kwargs.update(dict(
             vad_filter=True,
-            vad_parameters=dict(min_silence_duration_ms=400, speech_pad_ms=900),
+            vad_parameters=dict(
+                min_silence_duration_ms=1100,
+                speech_pad_ms=pad,
+                min_speech_duration_ms=250,
+                threshold=0.35,
+                max_speech_duration_s=30,
+            ),
         ))
-        print(f"[INFO] duration={duration:.2f}s -> VAD=ON")
+        print(f"[INFO] duration={duration:.2f}s -> VAD=ON (pad={pad}ms)")  # ✅ طباعة pad
     else:
         kwargs.update(dict(vad_filter=False))
         print(f"[INFO] duration={duration:.2f}s -> VAD=OFF")
@@ -408,6 +444,19 @@ def main():
         for s in segments
     ])
     clean_text = re.sub(r"\s+", " ", clean_text).strip()
+
+    # ✅ Tail Rescue (إنقاذ النهاية إذا آخر آية ناقصة)
+    with app.app_context():
+        ayat = get_surah_ayat_from_db(detected_surah)
+    last_ayah_text = ayat[-1][1] if ayat else ""
+    last_probe = " ".join(tokenize(normalize_ar(last_ayah_text))[-6:])
+
+    clean_norm = normalize_ar(clean_text)
+    if last_probe and last_probe not in clean_norm:
+        print("[TAIL] Last ayah missing -> running rescue...")
+        tail_text = transcribe_tail(model, audio_path, tail_seconds=120)  # ✅ كان 80
+        tail_text = re.sub(r"\s+", " ", tail_text).strip()
+        clean_text = (clean_text + " " + tail_text).strip()
 
     print("\n" + "-" * 50)
     print("[WHISPER CLEAN - FULL]")
