@@ -1,0 +1,150 @@
+/* تنسيقات إضافية لتصميم البطاقات داخل الـ Main */
+
+.history-list {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    margin-top: 10px;
+}
+
+.h-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,.04);
+    margin-bottom: 20px; /* 👈 هذا يسوي مسافة بين الكروت */
+}
+
+.h-card__header {
+    padding: 20px 26px;
+    display: flex;
+    justify-content: space-between; /* هذا يضمن دفع العناصر للأطراف */
+    align-items: center;
+    direction: rtl; /* يضمن أن الترتيب يبدأ من اليمين */
+}
+
+/* باقي التنسيقات تبقى كما هي دون تغيير */
+
+.h-surah { text-align: right; }
+.h-surah__name { margin: 0; font-size: 18px; color: var(--main2); font-weight: 900; }
+.h-surah__meta { display: flex; gap: 15px; color: #777; font-size: 12px; margin-top: 5px; }
+.h-surah__meta i { color: var(--main); margin-left: 3px; }
+
+.h-badge { padding: 6px 12px; border-radius: 8px; font-weight: 800; font-size: 13px; display: flex; align-items: center; gap: 6px; }
+.h-badge--error { background: #FFF0F0; color: #D9534F; }
+.h-badge--success { background: #F0FFF4; color: #27AE60; }
+
+.h-details__btn {
+    background: var(--main);
+    color: #fff;
+    padding: 12px;
+    text-align: center;
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    font-weight: 900;
+}
+
+.h-details__content { padding: 25px; border-top: 1px solid var(--border); direction: rtl; }
+.h-section { margin-bottom: 20px; }
+.h-section__title { font-size: 14px; color: var(--main2); margin-bottom: 10px; font-weight: 800; }
+.h-section__title--error { color: #D9534F; }
+
+.h-data-grid { background: var(--bg); padding: 15px; border-radius: 12px; font-size: 13px; }
+.h-data-item { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid rgba(0,0,0,0.05); }
+
+.h-stats { display: flex; gap: 15px; }
+.h-stat-box { flex: 1; border: 1px solid var(--border); padding: 15px; border-radius: 12px; text-align: center; }
+.h-stat-box span { font-size: 24px; font-weight: 900; color: var(--main); }
+
+.h-error-item {
+    background: #FFF5F5;
+    border-right: 4px solid #D9534F;
+    padding: 12px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+.h-error__label { background: #FFDADA; color: #D9534F; padding: 3px 8px; border-radius: 6px; font-weight: bold; font-size: 11px; }
+
+.h-submit-btn {
+    display: block;
+    width: 100%;
+    padding: 14px;
+    background: var(--main2);
+    color: #fff;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 12px;
+    font-weight: 900;
+    margin-top: 15px;
+}
+/* قائمة الأخطاء */
+.h-errors-list{
+  display: flex;
+  flex-direction: column;
+  gap: 14px;              /* 👈 هذا الفاصل بينهم */
+}
+
+/* كرت الخطأ الواحد */
+.h-error-card{
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 14px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  direction: rtl;
+}
+
+/* الجزء الأيمن (العنوان والوصف) */
+.h-error-info{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+}
+
+/* كبسولة رقم الآية */
+.h-ayah-pill{
+  font-size: 12px;
+  font-weight: 900;
+  padding: 4px 10px;
+  border-radius: 999px;
+  align-self: flex-start;
+  border: 1px solid;
+}
+/* تحريف (أحمر) */
+.err--wrong{
+  border-right: 5px solid #D9534F;
+}
+.err--wrong .h-ayah-pill{
+  background:#FFF0F0;
+  color:#D9534F;
+  border-color:#F2B6B6;
+}
+
+/* ناقص (أصفر) */
+.err--missing{
+  border-right: 5px solid #F2C94C;
+}
+.err--missing .h-ayah-pill{
+  background:#FFF8DB;
+  color:#B7791F;
+  border-color:#F2C94C;
+}
+
+/* زائد (برتقالي) */
+.err--extra{
+  border-right: 5px solid #F2994A;
+}
+.err--extra .h-ayah-pill{
+  background:#FFF2E6;
+  color:#C05621;
+  border-color:#F2994A;
+}

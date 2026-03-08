@@ -11,20 +11,21 @@
 
     <nav class="side__nav">
       <!-- 1) رفع تلاوة -->
-      <a class="side__item side__item--active" href="#">
-        <span class="side__icon">
-          <img src="{{ url_for('static', filename='img/upload1.png') }}" alt="رفع تلاوة">
-        </span>
-        <span>رفع تلاوة</span>
-      </a>
+     <a class="side__item {% if request.path.startswith('/upload') %}side__item--active{% endif %}" href="{{ url_for('main.upload') }}">
+    <span class="side__icon">
+        <img src="{{ url_for('static', filename='img/upload1.png') }}" alt="رفع تلاوة">
+    </span>
+    <span>رفع تلاوة</span>
+</a>
 
       <!-- 2) سجل التحقق -->
-      <a class="side__item" href="#">
-        <span class="side__icon">
-          <img src="{{ url_for('static', filename='img/history.png') }}" alt="سجل التحقق">
-        </span>
-        <span>سجل التحقق</span>
-      </a>
+<a href="{{ url_for('main.history') }}"
+   class="side__item {% if request.endpoint == 'main.history' %}side__item--active{% endif %}">
+  <span class="side__icon">
+    <img src="{{ url_for('static', filename='img/history.png') }}" alt="سجل التحقق">
+  </span>
+  <span>سجل التحقق</span>
+</a>
 
       <!-- 3) التقارير -->
       <a class="side__item" href="#">

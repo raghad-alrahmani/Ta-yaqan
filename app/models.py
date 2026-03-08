@@ -77,9 +77,18 @@ class RecitationInput(db.Model):
     processingdate = db.Column(db.DateTime, nullable=True)
     verificationstatus = db.Column(db.Boolean, nullable=False, server_default=db.text("TRUE"))
 
+    # ✅ الأعمدة الجديدة
+    surahid = db.Column(db.Integer, db.ForeignKey("quran_surah.surahid"), nullable=True)
+    startayah = db.Column(db.Integer, nullable=True)
+    endayah = db.Column(db.Integer, nullable=True)
+    totalwords = db.Column(db.Integer, nullable=True)
+    correctwords = db.Column(db.Integer, nullable=True)
+
+    # ✅ علاقة مع السورة
+    surah = db.relationship("QuranSurah", backref="inputs", lazy=True)
+
     errors = db.relationship("ErrorDetails", backref="input", lazy=True)
     reports = db.relationship("Report", backref="input", lazy=True)
-
 
 # =========================
 # 6) Error_Details
@@ -103,6 +112,35 @@ class ErrorDetails(db.Model):
 # =========================
 # 7) Reports
 # =========================
+class RecitationWordDetails(db.Model):
+    __tablename__ = "recitation_word_details"
+
+    wordid = db.Column(db.Integer, primary_key=True)
+
+    inputid = db.Column(db.Integer, db.ForeignKey("recitation_inputs.inputid"), nullable=False)
+
+    # اختياري لو تبين ربط مباشر بآية مرجعية (قد يكون NULL للزائد/الناقص حسب تصميمك)
+    referenceayahid = db.Column(db.Integer, db.ForeignKey("quran_ayah.ayahid"), nullable=True)
+
+    ayahnumber = db.Column(db.Integer, nullable=True)
+    word_index = db.Column(db.Integer, nullable=True)
+
+    expected_word = db.Column(db.Text, nullable=True)
+    spoken_word   = db.Column(db.Text, nullable=True)
+
+    # قيمك العربية النهائية: صحيح / ناقص / زائد / تحريف
+    status = db.Column(db.String(20), nullable=False)
+
+    starttime = db.Column(db.Numeric(8, 2), nullable=True)
+    endtime   = db.Column(db.Numeric(8, 2), nullable=True)
+
+    notes = db.Column(db.Text, nullable=True)
+
+    created_at = db.Column(db.DateTime, nullable=False, server_default=func.now())
+
+    # علاقات (اختياري لكن مفيد)
+    input = db.relationship("RecitationInput", backref=db.backref("word_details", lazy=True))
+    ayah  = db.relationship("QuranAyah", backref=db.backref("word_details", lazy=True))
 class Report(db.Model):
     __tablename__ = "reports"
 

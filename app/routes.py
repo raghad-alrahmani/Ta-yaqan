@@ -1,8 +1,17 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash, current_app, session
 from werkzeug.utils import secure_filename
-from app import db
-from app.models import VerifierUser
 
+from app import db
+from sqlalchemy import func
+
+from app.models import (
+    VerifierUser,
+    RecitationInput,
+    QuranSurah,
+    QuranAyah,
+    ErrorDetails,
+    RecitationWordDetails
+)
 from flask_mail import Message
 from . import mail
 
@@ -165,3 +174,127 @@ def add_test():
     db.session.add(user)
     db.session.commit()
     return "Inserted ✅"
+@main.route("/history")
+def history():
+    user_id = session.get("user_id")
+    if not user_id:
+        return redirect(url_for("auth.login"))
+
+    # ✅ rows: تجيب السجل + اسم السورة + عدد الأخطاء من جدول الكلمات
+    rows = (
+        db.session.query(
+            RecitationInput,
+            QuranSurah.surahname.label("surahname"),
+            func.count(RecitationWordDetails.wordid)
+                .filter(RecitationWordDetails.status != "صحيح")
+                .label("errors_count"),
+        )
+        .outerjoin(QuranSurah, QuranSurah.surahid == RecitationInput.surahid)
+        .outerjoin(RecitationWordDetails, RecitationWordDetails.inputid == RecitationInput.inputid)
+        .filter(RecitationInput.verifierid == user_id)
+        .group_by(RecitationInput.inputid, QuranSurah.surahname)
+        .order_by(RecitationInput.processingdate.desc().nullslast())
+        .all()
+    )
+
+    input_ids = [r.RecitationInput.inputid for r in rows]
+
+    # ✅ errors_map: تفاصيل الأخطاء من جدول الكلمات (ناقص/زائد/تحريف)
+    errors_map = {}
+    if input_ids:
+        word_errs = (
+            db.session.query(
+                RecitationWordDetails.inputid,
+                RecitationWordDetails.ayahnumber,
+                RecitationWordDetails.status,
+                RecitationWordDetails.expected_word,
+                RecitationWordDetails.spoken_word,
+            )
+            .filter(RecitationWordDetails.inputid.in_(input_ids))
+            .filter(RecitationWordDetails.status.in_(["ناقص", "زائد", "تحريف"]))
+            .order_by(
+                RecitationWordDetails.inputid.asc(),
+                RecitationWordDetails.ayahnumber.asc().nullslast(),
+                RecitationWordDetails.word_index.asc().nullslast(),
+            )
+            .all()
+        )
+
+        for inputid, ayahnumber, status, expected_word, spoken_word in word_errs:
+            # اسم نوع الخطأ اللي تبينه في الواجهة
+            if status == "ناقص":
+                msg = f"نقص كلمة: {expected_word or ''}".strip()
+            elif status == "زائد":
+                msg = f"زيادة كلمة: {spoken_word or ''}".strip()
+            else:  # تحريف
+                msg = f"تحريف: المتوقع '{expected_word or ''}' — المنطوق '{spoken_word or ''}'".strip()
+
+            errors_map.setdefault(inputid, []).append({
+                "ayahnumber": ayahnumber,
+                "errortype": status,          # (ناقص/زائد/تحريف)
+                "mismatchedtext": msg,
+            })
+
+    return render_template("history.html", rows=rows, errors_map=errors_map)
+
+@main.route("/results/<int:input_id>")
+def results(input_id):
+    user_id = session.get("user_id")
+    if not user_id:
+        return redirect(url_for("auth.login"))
+
+    rec = RecitationInput.query.filter_by(inputid=input_id, verifierid=user_id).first_or_404()
+
+    # موجود عندك
+    errors = (
+        db.session.query(ErrorDetails, QuranAyah.ayahnumber)
+        .join(QuranAyah, QuranAyah.ayahid == ErrorDetails.referenceayahid)
+        .filter(ErrorDetails.inputid == rec.inputid)
+        .all()
+    )
+
+    # الجديد: جدول الكلمات
+    word_details = (
+        RecitationWordDetails.query
+        .filter_by(inputid=rec.inputid)
+        .order_by(
+            RecitationWordDetails.ayahnumber.asc().nullslast(),
+            RecitationWordDetails.word_index.asc().nullslast(),
+            RecitationWordDetails.starttime.asc().nullslast(),
+            RecitationWordDetails.wordid.asc())
+        .all()
+    )
+
+    # Counts من جدول الكلمات (عشان الكروت + )
+    correct_count = sum(1 for w in word_details if w.status == "صحيح")
+    missing_count = sum(1 for w in word_details if w.status == "ناقص")
+    extra_count   = sum(1 for w in word_details if w.status == "زائد")
+    wrong_count   = sum(1 for w in word_details if w.status == "تحريف")
+
+    total_count = len(word_details)
+    errors_count = missing_count + extra_count + wrong_count
+
+    # حالة النتيجة العامة للعنوان
+    errors_count = missing_count + extra_count + wrong_count
+    is_ok = errors_count == 0
+
+    return render_template(
+        "results.html",
+        rec=rec,
+        errors=errors,                 # نخليها موجودة
+        word_details=word_details,
+        total_count=total_count,
+        correct_count=correct_count,
+        missing_count=missing_count,
+        extra_count=extra_count,
+        wrong_count=wrong_count,
+        errors_count=errors_count,
+        is_ok=is_ok
+    )
+
+
+@main.route("/results_stub/<int:input_id>")
+def results_stub(input_id):
+    # ✅ هذا بدل الدالة المكررة اللي كانت تسبب Crash
+    # نخليها موجودة بدون ما تكسر Flask
+    return redirect(url_for("main.results", input_id=input_id))
