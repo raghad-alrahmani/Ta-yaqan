@@ -298,3 +298,8 @@ def results_stub(input_id):
     # ✅ هذا بدل الدالة المكررة اللي كانت تسبب Crash
     # نخليها موجودة بدون ما تكسر Flask
     return redirect(url_for("main.results", input_id=input_id))
+
+
+@main.route("/listen")
+def listen():
+    return render_template("listen.html")

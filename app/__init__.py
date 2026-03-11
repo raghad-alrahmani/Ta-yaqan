@@ -9,12 +9,23 @@ mail = Mail()   # لازم يكون خارج الدالة مثل ما عندكم
 
 def create_app():
     # تحميل متغيرات البيئة من .env
-    load_dotenv()
+    load_dotenv(os.path.join(os.path.dirname(__file__), '.env'))
+    print(f"Connecting to: {os.getenv('DATABASE_URL')}")# مؤقت
 
     app = Flask(__name__)
 
     # ✅ إعدادات المشروع الأساسية (مثل قبل)
     app.config.from_object("app.config.Config")
+
+    # ✅ Override DB URI من Neon (DATABASE_URL)
+    db_url = os.getenv("DATABASE_URL") or os.getenv("SQLALCHEMY_DATABASE_URI")
+    if db_url:
+        # بعض الخدمات تعطي postgres:// (SQLAlchemy يبغى postgresql://)
+        if db_url.startswith("postgres://"):
+            db_url = db_url.replace("postgres://", "postgresql://", 1)
+        app.config["SQLALCHEMY_DATABASE_URI"] = db_url
+
+    app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
     # ✅ مهم عشان flash/session (مثل النسخة الثانية)
     app.config["SECRET_KEY"] = os.getenv("SECRET_KEY", "dev-secret-key-change-me")
@@ -38,7 +49,7 @@ def create_app():
     from .auth_routes import auth
     app.register_blueprint(auth)
 
-    # ✅ إنشاء الجداول (مثل النسخة الأولى)
+    # ✅ إنشاء الجداول
     with app.app_context():
         db.create_all()
 

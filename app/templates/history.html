@@ -33,12 +33,13 @@
         <span>التقارير</span>
       </a>
 
-      <a class="side__item" href="#">
-        <span class="side__icon">
-          <img src="{{ url_for('static', filename='img/listen.png') }}" alt="استماع للقرآن">
-        </span>
-        <span>استماع للقرآن</span>
-      </a>
+     <a class="side__item {% if request.endpoint == 'main.listen' %}side__item--active{% endif %}"
+   href="{{ url_for('main.listen') }}">
+  <span class="side__icon">
+    <img src="{{ url_for('static', filename='img/listen.png') }}" alt="استماع للقرآن">
+  </span>
+  <span>استماع للقرآن</span>
+</a>
     </nav>
 
     <main class="main">

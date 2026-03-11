@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block title %}تيقّن | استماع للقرآن{% endblock %}
+
+{% block head %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/upload.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/listen.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="dash">
+
+    <aside class="side">
+        <nav class="side__nav">
+            <a class="side__item" href="{{ url_for('main.upload') }}">
+                <span class="side__icon"><img src="{{ url_for('static', filename='img/upload1.png') }}"></span>
+                <span>رفع تلاوة</span>
+            </a>
+            <a class="side__item" href="{{ url_for('main.history') }}">
+                <span class="side__icon"><img src="{{ url_for('static', filename='img/history.png') }}"></span>
+                <span>سجل التحقق</span>
+            </a>
+            <a class="side__item" href="#">
+                <span class="side__icon"><img src="{{ url_for('static', filename='img/reports.png') }}"></span>
+                <span>التقارير</span>
+            </a>
+            <a class="side__item side__item--active" href="{{ url_for('main.listen') }}">
+                <span class="side__icon"><img src="{{ url_for('static', filename='img/listen.png') }}"></span>
+                <span>استماع للقرآن</span>
+            </a>
+        </nav>
+    </aside>
+
+    <main class="main">
+        <div class="main__head">
+            <h1 class="main__title">استماع للقرآن الكريم</h1>
+            <p class="main__sub">استمع إلى القرآن بصوت أشهر القرّاء</p>
+        </div>
+
+        <div class="reciters-grid">
+
+            <div class="reciter-card">
+                <div class="reciter-card__icon">
+                    <img src="{{ url_for('static', filename='img/listen.png') }}" alt="icon">
+                </div>
+                <div class="reciter-card__info">
+                    <h3 class="reciter-card__name">عبد الباسط عبد الصمد</h3>
+                    <p class="reciter-card__desc">القرآن الكريم كاملًا</p>
+                </div>
+                <button class="reciter-card__btn">
+                    <span>▷ استماع</span>
+                </button>
+            </div>
+
+            <div class="reciter-card">
+                <div class="reciter-card__icon">
+                    <img src="{{ url_for('static', filename='img/listen.png') }}" alt="icon">
+                </div>
+                <div class="reciter-card__info">
+                    <h3 class="reciter-card__name">محمد صديق المنشاوي</h3>
+                    <p class="reciter-card__desc">القرآن الكريم كاملًا</p>
+                </div>
+                <button class="reciter-card__btn">
+                    <span>▷ استماع</span>
+                </button>
+            </div>
+
+        </div>
+    </main>
+</div>
+{% endblock %}

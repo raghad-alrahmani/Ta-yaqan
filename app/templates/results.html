@@ -1,11 +1,16 @@
 {% extends "base.html" %}
 
 {% block title %}نتيجة التحقق{% endblock %}
-
 {% block head %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/results.css') }}">
+<style>
+  /* إخفاء الناف بار الأساسي في هذه الصفحة فقط */
+  .app-body > nav, /* أو أي كلاس مستخدم في navbar.html */
+  header:not(.results-header) { 
+      display: none !important; 
+  }
+</style>
 {% endblock %}
-
 {% block content %}
 
   <div class="page">
@@ -382,4 +387,5 @@
   })();
 </script>
 
+</body>
 {% endblock %}
