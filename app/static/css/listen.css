@@ -1,52 +1,70 @@
 .reciters-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
+    gap: 24px;
     margin-top: 25px;
 }
 
 .reciter-card {
     background: #fff;
     border-radius: 24px;
-    padding: 24px;
+    padding: 28px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     text-align: right;
+    border: 1.5px solid #ede9f6;
+    box-shadow: 0 4px 20px rgba(100, 68, 154, 0.07);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    position: relative;
+    overflow: hidden;
 }
 
-.reciter-card__icon img {
-    width: 40px; 
-    height: 40px;
+/* زخرفة خلفية */
+.reciter-card::before {
+    content: "";
+    position: absolute;
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(100,68,154,0.06) 0%, transparent 70%);
+    top: -60px;
+    left: -60px;
+    pointer-events: none;
 }
 
-/* الأيقونة الرمادية الصغيرة */
+.reciter-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(100, 68, 154, 0.13);
+    border-color: #c4b5e8;
+}
+
 .reciter-card__icon {
-    width: 52px;
-    height: 52px;
-    background: #f3f1f6;
-    border-radius: 14px;
+    width: 56px;
+    height: 56px;
+    background: linear-gradient(135deg, #f0ebfa, #e8e0f5);
+    border-radius: 16px;
     display: flex;
     align-items: center;
     justify-content: center;
     margin-bottom: 20px;
-    align-self: flex-start; /* تثبيتها في يمين الكارد */
+    align-self: flex-start;
+    border: 1.5px solid #ddd4f0;
 }
 
 .reciter-card__icon img {
     width: 30px;
     height: 30px;
-    opacity: 0.6;
+    opacity: 0.7;
 }
 
-/* منطقة النصوص */
 .reciter-card__info {
     width: 100%;
-    margin-bottom: 20px;
+    margin-bottom: 24px;
 }
 
 .reciter-card__name {
-    margin: 0 0 6px;
+    margin: 0 0 8px;
     color: var(--main2);
     font-weight: 800;
     font-size: 20px;
@@ -54,15 +72,26 @@
 
 .reciter-card__desc {
     margin: 0;
-    color: #8b7a5c;
+    color: #9b8aaa;
     font-size: 14px;
+    font-weight: 500;
 }
 
-/* زر الاستماع العريض */
+/* شريط فاصل */
+.reciter-card__info::after {
+    content: "";
+    display: block;
+    width: 40px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--main), transparent);
+    border-radius: 999px;
+    margin-top: 14px;
+}
+
 .reciter-card__btn {
     width: 100%;
     height: 54px;
-    background: var(--main);
+    background: linear-gradient(135deg, var(--main), var(--main2));
     color: #fff;
     border-radius: 16px;
     border: none;
@@ -74,15 +103,18 @@
     justify-content: center;
     gap: 8px;
     transition: 0.3s;
+    box-shadow: 0 4px 14px rgba(100, 68, 154, 0.3);
+    margin-top: auto;
 }
 
 .reciter-card__btn:hover {
-    background: var(--main2);
+    opacity: 0.9;
+    box-shadow: 0 6px 20px rgba(100, 68, 154, 0.4);
+    transform: translateY(-1px);
 }
 
-/* Responsive لضمان شكل الصفحة في الجوال */
 @media (max-width: 768px) {
     .reciters-grid {
-        grid-template-columns: 1fr; /* كرت واحد في الصف في الشاشات الصغيرة */
+        grid-template-columns: 1fr;
     }
 }

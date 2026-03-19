@@ -1,0 +1,279 @@
+{% extends "base.html" %}
+{% block title %}تيقّن | التقارير{% endblock %}
+
+{% block head %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/upload.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/reports.css') }}">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+{% endblock %}
+
+{% block content %}
+<div class="dash">
+<aside class="side">
+  <nav class="side__nav">
+    <a class="side__item" href="{{ url_for('main.upload') }}">
+      <span class="side__icon"><img src="{{ url_for('static', filename='img/upload1.png') }}" alt="رفع تلاوة"></span>
+      <span>رفع تلاوة</span>
+    </a>
+    <a class="side__item" href="{{ url_for('main.history') }}">
+      <span class="side__icon"><img src="{{ url_for('static', filename='img/history.png') }}" alt="سجل التحقق"></span>
+      <span>سجل التحقق</span>
+    </a>
+    <a class="side__item side__item--active" href="{{ url_for('main.reports') }}">
+      <span class="side__icon"><img src="{{ url_for('static', filename='img/reports.png') }}" alt="التقارير"></span>
+      <span>التقارير</span>
+    </a>
+    <a class="side__item" href="{{ url_for('main.listen') }}">
+      <span class="side__icon"><img src="{{ url_for('static', filename='img/listen.png') }}" alt="استماع للقرآن"></span>
+      <span>استماع للقرآن</span>
+    </a>
+  </nav>
+</aside>
+
+  <main class="main">
+
+    <!-- ===== هيدر الصفحة ===== -->
+    <div class="rp-header">
+      <div>
+        <h1 class="rp-header__title">تقارير التحقق الشاملة</h1>
+        <p class="rp-header__sub">إحصائيات وتحليل شامل لجميع عمليات التحقق من التلاوات</p>
+      </div>
+
+      <!-- فلتر الوقت -->
+      <div class="rp-period">
+        {% for val, label in [('week','أسبوع'),('month','شهر'),('3months','3 أشهر'),('year','عام'),('all','الكل')] %}
+        <a href="{{ url_for('main.reports', period=val) }}"
+           class="rp-period__btn {% if period == val %}rp-period__btn--active{% endif %}">
+          {{ label }}
+        </a>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- ===== الكروت الأربعة ===== -->
+    <div class="rp-stats">
+
+      <div class="rp-stat rp-stat--purple">
+        <div class="rp-stat__icon">📖</div>
+        <div class="rp-stat__value">{{ top_surah_name }}</div>
+        <div class="rp-stat__label">السورة الأكثر تحققاً</div>
+      </div>
+
+      <div class="rp-stat rp-stat--red">
+        <div class="rp-stat__icon">⚠️</div>
+        <div class="rp-stat__value">{{ files_with_errors }}</div>
+        <div class="rp-stat__label">ملفات بها أخطاء</div>
+      </div>
+
+      <div class="rp-stat rp-stat--green">
+        <div class="rp-stat__icon">✅</div>
+        <div class="rp-stat__value">{{ files_without_errors }}</div>
+        <div class="rp-stat__label">ملفات سليمة بدون أخطاء</div>
+      </div>
+
+      <div class="rp-stat rp-stat--gray">
+        <div class="rp-stat__icon">📄</div>
+        <div class="rp-stat__value">{{ total_files }}</div>
+        <div class="rp-stat__label">إجمالي الملفات المتحقق منها</div>
+      </div>
+
+    </div>
+
+    <!-- ===== تبويبات ===== -->
+    <div class="rp-tabs">
+      <button class="rp-tab rp-tab--active" data-tab="errors">تحليل الأخطاء</button>
+      <button class="rp-tab" data-tab="sources">المصادر والسور</button>
+      <button class="rp-tab" data-tab="details">التحققات المفصلة</button>
+    </div>
+
+    <!-- ===== محتوى التبويب: تحليل الأخطاء ===== -->
+    <div class="rp-tabcontent" id="tab-errors">
+
+      <!-- ملخص الأخطاء السريع -->
+      <div class="rp-card">
+        <div class="rp-card__head">
+          <div>
+            <div class="rp-card__title">⚡ ملخص الأخطاء السريع</div>
+            <div class="rp-card__sub">نظرة سريعة على الأخطاء المكتشفة</div>
+          </div>
+        </div>
+
+        <div class="rp-summary-grid">
+          <div class="rp-summary-box rp-summary-box--red">
+            <div class="rp-summary-box__icon">⚠️</div>
+            <div class="rp-summary-box__num">{{ files_with_errors }}</div>
+            <div class="rp-summary-box__label">ملف به أخطاء</div>
+            <div class="rp-summary-box__hint">⚠️ يحتاج مراجعة</div>
+          </div>
+          <div class="rp-summary-box rp-summary-box--green">
+            <div class="rp-summary-box__icon">✅</div>
+            <div class="rp-summary-box__num">{{ files_without_errors }}</div>
+            <div class="rp-summary-box__label">ملف سليم</div>
+            <div class="rp-summary-box__hint">بدون أي أخطاء ✓</div>
+          </div>
+        </div>
+
+        <div class="rp-total-bar">
+          <div class="rp-total-bar__right">
+            <span class="rp-total-bar__title">مجموع جميع الأخطاء</span>
+            <span class="rp-total-bar__num">{{ total_errors }} خطأً</span>
+          </div>
+          <div class="rp-total-bar__left">في {{ total_files }} ملف</div>
+        </div>
+
+        {% if most_common_error_ar != "—" %}
+        <div class="rp-common-error">
+          <div class="rp-common-error__right">
+            <span class="rp-common-error__icon">💡</span>
+            <span class="rp-common-error__label">الخطأ الأكثر شيوعاً:</span>
+            <span class="rp-common-error__value">{{ most_common_error_ar }}</span>
+          </div>
+          <span class="rp-common-error__count">تكرر {{ most_common_error_count }} مرة</span>
+        </div>
+        {% endif %}
+      </div>
+
+      <!-- توزيع أنواع الأخطاء -->
+      <div class="rp-card">
+        <div class="rp-card__head">
+          <div>
+            <div class="rp-card__title">🕐 توزيع أنواع الأخطاء</div>
+            <div class="rp-card__sub">عدد كل نوع من الأخطاء المكتشفة</div>
+          </div>
+        </div>
+
+        <div class="rp-dist">
+          <div class="rp-dist__list">
+            <div class="rp-dist__item">
+              <span class="rp-dist__dot" style="background:#ef4444;"></span>
+              <span class="rp-dist__name">نقص كلمات</span>
+              <span class="rp-dist__count">{{ missing_count }} <span class="rp-dist__err">خطأ</span></span>
+            </div>
+            <div class="rp-dist__item">
+              <span class="rp-dist__dot" style="background:#b5a08a;"></span>
+              <span class="rp-dist__name">تحريف كلمات</span>
+              <span class="rp-dist__count">{{ wrong_count }} <span class="rp-dist__err">خطأ</span></span>
+            </div>
+            <div class="rp-dist__item">
+              <span class="rp-dist__dot" style="background:#f59e0b;"></span>
+              <span class="rp-dist__name">زيادة كلمات</span>
+              <span class="rp-dist__count">{{ extra_count }} <span class="rp-dist__err">خطأ</span></span>
+            </div>
+          </div>
+          <div class="rp-dist__chart">
+            <canvas id="errorsChart" width="220" height="220"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- الأخطاء الأكثر تكراراً -->
+      <div class="rp-card">
+        <div class="rp-card__head">
+          <div>
+            <div class="rp-card__title">⊙ الأخطاء الأكثر تكراراً على مستوى النظام</div>
+          </div>
+        </div>
+
+        {% if top_words %}
+        <div class="rp-topwords">
+          {% for w in top_words %}
+          {% set cls = 'rp-word--red' if w.status == 'ناقص' else ('rp-word--orange' if w.status == 'زائد' else 'rp-word--yellow') %}
+          {% set badge_cls = 'rp-badge--red' if w.status == 'ناقص' else ('rp-badge--orange' if w.status == 'زائد' else 'rp-badge--yellow') %}
+          {% set label = 'نقص' if w.status == 'ناقص' else ('زائد' if w.status == 'زائد' else 'تحريف') %}
+          <div class="rp-word {{ cls }}">
+            <div class="rp-word__right">
+              <div class="rp-word__top">
+                <span class="rp-word__text">{{ w.word }}</span>
+                <span class="rp-badge {{ badge_cls }}">{{ label }}</span>
+              </div>
+              <div class="rp-word__meta">{{ w.surah }} - تكرر {{ w.count }} مرة - في {{ w.files }} ملفاً</div>
+            </div>
+            <div class="rp-word__count">{{ w.count }}</div>
+          </div>
+          {% endfor %}
+        </div>
+        {% else %}
+        <p style="text-align:center; color:#999; padding:30px;">لا توجد أخطاء مسجلة</p>
+        {% endif %}
+      </div>
+
+    </div>
+
+    <!-- ===== تبويب: المصادر والسور (placeholder) ===== -->
+    <div class="rp-tabcontent rp-tabcontent--hidden" id="tab-sources">
+      <div class="rp-card" style="text-align:center; padding:50px;">
+        <p style="color:#999; font-size:16px;">قريباً — تحليل السور والمصادر</p>
+      </div>
+    </div>
+
+    <!-- ===== تبويب: التحققات المفصلة (placeholder) ===== -->
+    <div class="rp-tabcontent rp-tabcontent--hidden" id="tab-details">
+      <div class="rp-card" style="text-align:center; padding:50px;">
+        <p style="color:#999; font-size:16px;">قريباً — عرض التحققات المفصلة</p>
+      </div>
+    </div>
+
+    <!-- ===== شريط التصدير ===== -->
+    <div class="rp-export">
+      <div class="rp-export__right">
+        <div class="rp-export__title">تصدير التقرير الشامل</div>
+        <div class="rp-export__sub">احفظ تقريرك الكامل مع جميع التفاصيل والإحصائيات</div>
+      </div>
+      <div class="rp-export__btns">
+        <button class="rp-export__btn rp-export__btn--excel" onclick="exportExcel()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v12m0 0l4-4m-4 4l-4-4m-5 8h18"/>
+          </svg>
+          Excel
+        </button>
+        <a href="{{ url_for('main.reports_pdf', period=period) }}" class="rp-export__btn rp-export__btn--pdf">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v12m0 0l4-4m-4 4l-4-4m-5 8h18"/>
+          </svg>
+          PDF
+        </a>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<script>
+// ===== تبويبات =====
+document.querySelectorAll('.rp-tab').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    document.querySelectorAll('.rp-tab').forEach(function(b) { b.classList.remove('rp-tab--active'); });
+    document.querySelectorAll('.rp-tabcontent').forEach(function(c) { c.classList.add('rp-tabcontent--hidden'); });
+    btn.classList.add('rp-tab--active');
+    document.getElementById('tab-' + btn.dataset.tab).classList.remove('rp-tabcontent--hidden');
+  });
+});
+
+// ===== Pie Chart =====
+var ctx = document.getElementById('errorsChart');
+if (ctx) {
+  new Chart(ctx, {
+    type: 'pie',
+    data: {
+      labels: ['نقص كلمات', 'تحريف كلمات', 'زيادة كلمات'],
+      datasets: [{
+        data: [{{ missing_count }}, {{ wrong_count }}, {{ extra_count }}],
+        backgroundColor: ['#ef4444', '#b5a08a', '#f59e0b'],
+        borderWidth: 0,
+      }]
+    },
+    options: {
+      plugins: {
+        legend: { display: false },
+        tooltip: { rtl: true }
+      },
+      cutout: 0,
+    }
+  });
+}
+
+function exportExcel() {
+  alert('قريباً — تصدير Excel');
+}
+</script>
+{% endblock %}
