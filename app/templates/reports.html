@@ -50,34 +50,33 @@
       </div>
     </div>
 
-    <!-- ===== الكروت الأربعة ===== -->
-    <div class="rp-stats">
+  <div class="rp-stats">
 
-      <div class="rp-stat rp-stat--purple">
-        <div class="rp-stat__icon">📖</div>
-        <div class="rp-stat__value">{{ top_surah_name }}</div>
-        <div class="rp-stat__label">السورة الأكثر تحققاً</div>
-      </div>
+  <div class="rp-stat rp-stat--purple">
+    <img src="{{ url_for('static', filename='img/repots2.png') }}" class="rp-stat__img">
+    <div class="rp-stat__value">{{ top_surah_name }}</div>
+    <div class="rp-stat__label">السورة الأكثر تحققاً</div>
+  </div>
 
-      <div class="rp-stat rp-stat--red">
-        <div class="rp-stat__icon">⚠️</div>
-        <div class="rp-stat__value">{{ files_with_errors }}</div>
-        <div class="rp-stat__label">ملفات بها أخطاء</div>
-      </div>
+  <div class="rp-stat rp-stat--red">
+    <img src="{{ url_for('static', filename='img/wrong2.png') }}" class="rp-stat__img">
+    <div class="rp-stat__value">{{ files_with_errors }}</div>
+    <div class="rp-stat__label">ملفات بها أخطاء</div>
+  </div>
 
-      <div class="rp-stat rp-stat--green">
-        <div class="rp-stat__icon">✅</div>
-        <div class="rp-stat__value">{{ files_without_errors }}</div>
-        <div class="rp-stat__label">ملفات سليمة بدون أخطاء</div>
-      </div>
+  <div class="rp-stat rp-stat--green">
+    <img src="{{ url_for('static', filename='img/check.png') }}" class="rp-stat__img">
+    <div class="rp-stat__value">{{ files_without_errors }}</div>
+    <div class="rp-stat__label">ملفات سليمة بدون أخطاء</div>
+  </div>
 
-      <div class="rp-stat rp-stat--gray">
-        <div class="rp-stat__icon">📄</div>
-        <div class="rp-stat__value">{{ total_files }}</div>
-        <div class="rp-stat__label">إجمالي الملفات المتحقق منها</div>
-      </div>
+  <div class="rp-stat rp-stat--gray">
+    <img src="{{ url_for('static', filename='img/book.png') }}" class="rp-stat__img">
+    <div class="rp-stat__value">{{ total_files }}</div>
+    <div class="rp-stat__label">إجمالي الملفات المتحقق منها</div>
+  </div>
 
-    </div>
+</div>
 
     <!-- ===== تبويبات ===== -->
     <div class="rp-tabs">
@@ -92,26 +91,26 @@
       <!-- ملخص الأخطاء السريع -->
       <div class="rp-card">
         <div class="rp-card__head">
-          <div>
-            <div class="rp-card__title">⚡ ملخص الأخطاء السريع</div>
-            <div class="rp-card__sub">نظرة سريعة على الأخطاء المكتشفة</div>
-          </div>
+          <div class="rp-card__title">
+  <img src="{{ url_for('static', filename='img/zep2.png') }}" style="width:25px; height:25px; object-fit:contain; vertical-align:middle; margin-left:3px;">
+  ملخص الأخطاء السريع
+</div>
         </div>
 
         <div class="rp-summary-grid">
-          <div class="rp-summary-box rp-summary-box--red">
-            <div class="rp-summary-box__icon">⚠️</div>
-            <div class="rp-summary-box__num">{{ files_with_errors }}</div>
-            <div class="rp-summary-box__label">ملف به أخطاء</div>
-            <div class="rp-summary-box__hint">⚠️ يحتاج مراجعة</div>
-          </div>
-          <div class="rp-summary-box rp-summary-box--green">
-            <div class="rp-summary-box__icon">✅</div>
-            <div class="rp-summary-box__num">{{ files_without_errors }}</div>
-            <div class="rp-summary-box__label">ملف سليم</div>
-            <div class="rp-summary-box__hint">بدون أي أخطاء ✓</div>
-          </div>
-        </div>
+  <div class="rp-summary-box rp-summary-box--red">
+    <img src="{{ url_for('static', filename='img/wrong.png') }}" style="width:36px; height:36px; object-fit:contain;">
+    <div class="rp-summary-box__num">{{ files_with_errors }}</div>
+    <div class="rp-summary-box__label">ملف به أخطاء</div>
+    <div class="rp-summary-box__hint"> يحتاج مراجعة</div>
+  </div>
+  <div class="rp-summary-box rp-summary-box--green">
+    <img src="{{ url_for('static', filename='img/check-green.png') }}" style="width:36px; height:36px; object-fit:contain;">
+    <div class="rp-summary-box__num">{{ files_without_errors }}</div>
+    <div class="rp-summary-box__label">ملف سليم</div>
+    <div class="rp-summary-box__hint">بدون أي أخطاء </div>
+  </div>
+</div>
 
         <div class="rp-total-bar">
           <div class="rp-total-bar__right">
@@ -137,7 +136,10 @@
       <div class="rp-card">
         <div class="rp-card__head">
           <div>
-            <div class="rp-card__title">🕐 توزيع أنواع الأخطاء</div>
+            <div class="rp-card__title">
+  <img src="{{ url_for('static', filename='img/chart.png') }}" style="width:25px; height:25px; object-fit:contain; vertical-align:middle; margin-left:3px;">
+  توزيع أنواع الأخطاء
+</div>
             <div class="rp-card__sub">عدد كل نوع من الأخطاء المكتشفة</div>
           </div>
         </div>
@@ -170,7 +172,10 @@
       <div class="rp-card">
         <div class="rp-card__head">
           <div>
-            <div class="rp-card__title">⊙ الأخطاء الأكثر تكراراً على مستوى النظام</div>
+            <div class="rp-card__title">
+  <img src="{{ url_for('static', filename='img/wrong3.png') }}" style="width:25px; height:25px; object-fit:contain; vertical-align:middle; margin-left:3px;">
+  الأخطاء الأكثر تكراراً على مستوى النظام
+</div>
           </div>
         </div>
 
@@ -239,6 +244,8 @@
 </div>
 
 <script>
+/* eslint-disable */
+// @ts-nocheck
 // ===== تبويبات =====
 document.querySelectorAll('.rp-tab').forEach(function(btn) {
   btn.addEventListener('click', function() {
@@ -248,16 +255,18 @@ document.querySelectorAll('.rp-tab').forEach(function(btn) {
     document.getElementById('tab-' + btn.dataset.tab).classList.remove('rp-tabcontent--hidden');
   });
 });
-
-// ===== Pie Chart =====
+// ===== رسم مخطط توزيع الأخطاء =====
+var missingCount = {{ missing_count | default(0) | int }};
+var wrongCount   = {{ wrong_count   | default(0) | int }};
+var extraCount   = {{ extra_count   | default(0) | int }};
 var ctx = document.getElementById('errorsChart');
 if (ctx) {
   new Chart(ctx, {
     type: 'pie',
     data: {
-      labels: ['نقص كلمات', 'تحريف كلمات', 'زيادة كلمات'],
+      labels: ['زيادة كلمات', 'تحريف كلمات', 'نقص كلمات'],
       datasets: [{
-        data: [{{ missing_count }}, {{ wrong_count }}, {{ extra_count }}],
+        data: [missingCount, wrongCount, extraCount],
         backgroundColor: ['#ef4444', '#b5a08a', '#f59e0b'],
         borderWidth: 0,
       }]
@@ -271,7 +280,6 @@ if (ctx) {
     }
   });
 }
-
 function exportExcel() {
   alert('قريباً — تصدير Excel');
 }
