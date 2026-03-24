@@ -24,8 +24,11 @@ def login_post():
     session["user_id"] = user.verifierid
     session["user_name"] = user.verifiername
 
+    if user.is_admin:
+        session["is_admin"] = True
+        return redirect(url_for("main.admin_dashboard"))
+    
     return redirect(url_for("main.upload"))
-
 
 @auth.get("/signup")
 def signup():

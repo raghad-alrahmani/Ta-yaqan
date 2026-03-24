@@ -26,6 +26,7 @@ class VerifierUser(db.Model):
     verifiername = db.Column(db.String(30), nullable=False)
     verifieremail = db.Column(db.String(40), nullable=False)
     verifierpassword = db.Column(db.String(255), nullable=False)
+    is_admin = db.Column(db.Boolean, default=False)
 
     inputs = db.relationship("RecitationInput", backref="verifier", lazy=True)
     activities = db.relationship("ActivityLog", backref="verifier", lazy=True)

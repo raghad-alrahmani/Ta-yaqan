@@ -24,6 +24,7 @@ from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 import arabic_reshaper
 from bidi.algorithm import get_display
+from datetime import date
 import io, datetime
 
 import os, subprocess, uuid
@@ -254,7 +255,10 @@ def results(input_id):
     if not user_id:
         return redirect(url_for("auth.login"))
 
-    rec = RecitationInput.query.filter_by(inputid=input_id, verifierid=user_id).first_or_404()
+    if session.get("is_admin"):
+        rec = RecitationInput.query.filter_by(inputid=input_id).first_or_404()
+    else:
+        rec = RecitationInput.query.filter_by(inputid=input_id, verifierid=user_id).first_or_404()
 
     # موجود عندك
     errors = (
@@ -597,3 +601,123 @@ def reports():
 def reports_pdf():
     period = request.args.get("period", "month")
     return redirect(url_for('main.reports', period=period))
+# ===== أضف هذه الـ imports إذا مو موجودة =====
+# from .models import VerifierUser, RecitationInput, ErrorDetails, RecitationWordDetails
+# from sqlalchemy import func as sqlfunc
+# from datetime import date
+
+# ===== أضف هذين الـ routes في routes.py =====
+
+@main.route("/admin/dashboard")
+def admin_dashboard():
+    # حماية: فقط الأدمن يدخل
+    if not session.get("is_admin"):
+        return redirect(url_for("main.upload"))
+
+    from sqlalchemy import func as sqlfunc
+
+    # إحصائيات عامة
+    total_users         = VerifierUser.query.count()
+    total_verifications = RecitationInput.query.count()
+    total_errors        = ErrorDetails.query.count()
+
+    # نشطون اليوم (لهم تحقق اليوم)
+    today = date.today()
+    active_today = db.session.query(
+        sqlfunc.count(sqlfunc.distinct(RecitationInput.verifierid))
+    ).filter(
+        sqlfunc.date(RecitationInput.processingdate) == today
+    ).scalar() or 0
+
+    # آخر 5 تحققات
+    recent_verifications = (
+        RecitationInput.query
+        .order_by(RecitationInput.processingdate.desc())
+        .limit(5).all()
+    )
+
+    # كل التحققات لصفحة التلاوات
+    all_verifications = (
+        RecitationInput.query
+        .order_by(RecitationInput.processingdate.desc())
+        .limit(50).all()
+    )
+
+    # كل المستخدمين
+    users = VerifierUser.query.filter_by(is_admin=False).all()
+
+    # ملفات بها أخطاء / بدون
+    files_with_errors = (
+        db.session.query(sqlfunc.count(sqlfunc.distinct(ErrorDetails.inputid)))
+        .scalar() or 0
+    )
+    files_without_errors = total_verifications - files_with_errors
+
+    # الخطأ الأكثر شيوعاً
+    common = (
+        db.session.query(ErrorDetails.errortype, sqlfunc.count(ErrorDetails.errortype).label("cnt"))
+        .group_by(ErrorDetails.errortype)
+        .order_by(sqlfunc.count(ErrorDetails.errortype).desc())
+        .first()
+    )
+    error_map = {"ناقص": "نقص كلمات", "زائد": "زيادة كلمات", "تحريف": "تحريف كلمات"}
+    most_common_error_ar = error_map.get(common[0], common[0]) if common else "—"
+
+    # السورة الأكثر تحققاً
+    top_surah = (
+        db.session.query(RecitationInput.surahid, sqlfunc.count(RecitationInput.surahid).label("cnt"))
+        .filter(RecitationInput.surahid.isnot(None))
+        .group_by(RecitationInput.surahid)
+        .order_by(sqlfunc.count(RecitationInput.surahid).desc())
+        .first()
+    )
+    top_surah_name = "—"
+    if top_surah:
+        from .models import QuranSurah
+        s = QuranSurah.query.get(top_surah[0])
+        top_surah_name = s.surahname if s else "—"
+
+    return render_template("admin/admin_dashboard.html",
+        total_users=total_users,
+        total_verifications=total_verifications,
+        total_errors=total_errors,
+        active_today=active_today,
+        recent_verifications=recent_verifications,
+        all_verifications=all_verifications,
+        users=users,
+        files_with_errors=files_with_errors,
+        files_without_errors=files_without_errors,
+        most_common_error_ar=most_common_error_ar,
+        top_surah_name=top_surah_name,
+    )
+
+
+@main.route("/admin/delete-user/<int:user_id>", methods=["POST"])
+def admin_delete_user(user_id):
+    if not session.get("is_admin"):
+        return {"success": False}, 403
+    user = VerifierUser.query.get_or_404(user_id)
+    db.session.delete(user)
+    db.session.commit()
+    return {"success": True}
+
+@main.route("/admin/users")
+def admin_users():
+    if not session.get("is_admin"):
+        return redirect(url_for("main.upload"))
+ 
+    from datetime import datetime
+    users = VerifierUser.query.filter_by(is_admin=False).all()
+    return render_template("admin/admin_users.html", users=users, now=datetime.now())
+
+@main.route("/admin/verifications")
+def admin_verifications():
+    if not session.get("is_admin"):
+        return redirect(url_for("main.upload"))
+
+    verifications = (
+        RecitationInput.query
+        .order_by(RecitationInput.processingdate.desc())
+        .all()
+    )
+    return render_template("admin/admin_verifications.html", verifications=verifications)

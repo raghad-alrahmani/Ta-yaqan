@@ -1,0 +1,144 @@
+{% extends "base.html" %}
+{% block title %}تيقّن | إدارة المستخدمين{% endblock %}
+
+{% block head %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/upload.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/reports.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="dash">
+
+  <!-- ===== Sidebar ===== -->
+  <aside class="side">
+    <nav class="side__nav">
+      <a class="side__item {% if request.endpoint == 'main.admin_dashboard' %}side__item--active{% endif %}" href="{{ url_for('main.admin_dashboard') }}">
+        <span class="side__icon"><img src="{{ url_for('static', filename='img/zap.png') }}" alt="نظرة عامة"></span>
+        <span>نظرة عامة</span>
+      </a>
+      <a class="side__item {% if request.endpoint == 'main.admin_users' %}side__item--active{% endif %}" href="{{ url_for('main.admin_users') }}">
+        <span class="side__icon"><img src="{{ url_for('static', filename='img/users.png') }}" alt="المستخدمين"></span>
+        <span>إدارة المستخدمين</span>
+      </a>
+      <a class="side__item {% if request.endpoint == 'main.admin_verifications' %}side__item--active{% endif %}" href="{{ url_for('main.admin_verifications') }}">
+        <span class="side__icon"><img src="{{ url_for('static', filename='img/history.png') }}" alt="التلاوات"></span>
+        <span>التلاوات والتحقق</span>
+      </a>
+    </nav>
+  </aside>
+
+  <!-- ===== Main ===== -->
+  <main class="main">
+
+    <!-- هيدر -->
+    <div class="rp-header">
+      <div>
+        <h1 class="rp-header__title">إدارة المستخدمين</h1>
+        <p class="rp-header__sub">عرض وإدارة جميع مستخدمي النظام</p>
+      </div>
+    </div>
+
+    <!-- شريط البحث -->
+    <div class="rp-card" style="margin-bottom:16px;">
+      <div class="ad-search-bar">
+        <div class="ad-search-wrap">
+          <img src="{{ url_for('static', filename='img/target.png') }}" alt="بحث">
+          <input type="text" class="ad-search" id="userSearch" placeholder="ابحث عن مستخدم...">
+        </div>
+      </div>
+    </div>
+
+    <!-- جدول المستخدمين -->
+    <div class="rp-card">
+      <div class="ad-table-wrap">
+        <table class="ad-table" id="usersTable">
+          <thead>
+            <tr>
+              <th>المستخدم</th>
+              <th>البريد الإلكتروني</th>
+              <th>عدد التحققات</th>
+              <th>آخر نشاط</th>
+              <th>الحالة</th>
+              <th style="text-align:center;">التفاصيل</th>
+              <th style="text-align:center;">حذف</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% if users %}
+              {% for u in users %}
+              {% set last = u.inputs | sort(attribute='processingdate', reverse=True) | first %}
+              {% set last_date = last.processingdate if last and last.processingdate else none %}
+              {% set is_active = (last_date and (now - last_date).days <= 30) %}
+              <tr data-name="{{ u.verifiername }}" data-email="{{ u.verifieremail }}">
+                <td>
+                  <div class="ad-user-cell">
+                    <div class="ad-avatar">{{ u.verifiername[0] }}</div>
+                    <span>{{ u.verifiername }}</span>
+                  </div>
+                </td>
+                <td>{{ u.verifieremail }}</td>
+                <td><span class="ad-badge ad-badge--count">{{ u.inputs | length }}</span></td>
+                <td>{{ last_date.strftime('%Y-%m-%d') if last_date else '—' }}</td>
+                <td>
+                  {% if is_active %}
+                    <span class="ad-badge ad-badge--active">نشط</span>
+                  {% else %}
+                    <span class="ad-badge ad-badge--inactive">غير نشط</span>
+                  {% endif %}
+                </td>
+                <td style="text-align:center;">
+                  {% if last %}
+                    <a href="{{ url_for('main.results', input_id=last.inputid) }}" class="ad-btn-icon" title="عرض آخر تحقق">
+                      <img src="{{ url_for('static', filename='img/details.png') }}" alt="تفاصيل">
+                    </a>
+                  {% else %}
+                    <span style="color:#ccc; font-size:13px;">—</span>
+                  {% endif %}
+                </td>
+                <td style="text-align:center;">
+                  <button class="ad-btn-icon ad-btn-icon--del"
+                    onclick="deleteUser({{ u.verifierid }}, '{{ u.verifiername }}')">
+                    <img src="{{ url_for('static', filename='img/delete.png') }}" alt="حذف">
+                  </button>
+                </td>
+              </tr>
+              {% endfor %}
+            {% else %}
+              <tr>
+                <td colspan="7" style="text-align:center; color:#999; padding:30px;">لا يوجد مستخدمون</td>
+              </tr>
+            {% endif %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<script>
+var userSearch = document.getElementById('userSearch');
+if (userSearch) {
+  userSearch.addEventListener('input', function() {
+    var val = this.value.toLowerCase();
+    document.querySelectorAll('#usersTable tbody tr').forEach(function(row) {
+      var name = (row.dataset.name || '').toLowerCase();
+      var email = (row.dataset.email || '').toLowerCase();
+      row.style.display = (name.includes(val) || email.includes(val)) ? '' : 'none';
+    });
+  });
+}
+
+function deleteUser(id, name) {
+  if (confirm('هل أنت متأكد من حذف المستخدم: ' + name + '؟')) {
+    fetch('/admin/delete-user/' + id, { method: 'POST' })
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        if (data.success) { location.reload(); }
+        else { alert('حدث خطأ أثناء الحذف'); }
+      });
+  }
+}
+</script>
+{% endblock %}
