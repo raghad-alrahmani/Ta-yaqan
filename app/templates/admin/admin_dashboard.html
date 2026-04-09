@@ -24,10 +24,10 @@
         <span class="side__icon"><img src="{{ url_for('static', filename='img/history.png') }}" alt="التلاوات"></span>
         <span>التلاوات والتحقق</span>
         
-      {# <a class="side__item" href="#">
-        <span class="side__icon"><img src="{{ url_for('static', filename='img/reports.png') }}" alt="التقارير"></span>
-        <span>التقارير العامة</span>
-      </a> #}
+      <a class="side__item {% if request.endpoint == 'main.admin_reports' %}side__item--active{% endif %}" href="{{ url_for('main.admin_reports') }}">
+  <span class="side__icon"><img src="{{ url_for('static', filename='img/reportpage.png') }}" alt="التقارير"></span>
+  <span>التقارير العامة</span>
+</a>
     </nav>
   </aside>
 

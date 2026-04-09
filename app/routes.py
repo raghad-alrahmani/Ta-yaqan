@@ -615,11 +615,12 @@ def admin_dashboard():
         return redirect(url_for("main.upload"))
 
     from sqlalchemy import func as sqlfunc
-
-    # إحصائيات عامة
+# إحصائيات عامة
     total_users         = VerifierUser.query.count()
     total_verifications = RecitationInput.query.count()
-    total_errors        = ErrorDetails.query.count()
+    total_errors        = RecitationWordDetails.query.filter(
+        RecitationWordDetails.status != "صحيح"
+    ).count()
 
     # نشطون اليوم (لهم تحقق اليوم)
     today = date.today()
@@ -648,21 +649,22 @@ def admin_dashboard():
 
     # ملفات بها أخطاء / بدون
     files_with_errors = (
-        db.session.query(sqlfunc.count(sqlfunc.distinct(ErrorDetails.inputid)))
+        db.session.query(sqlfunc.count(sqlfunc.distinct(RecitationWordDetails.inputid)))
+        .filter(RecitationWordDetails.status != "صحيح")
         .scalar() or 0
     )
     files_without_errors = total_verifications - files_with_errors
 
     # الخطأ الأكثر شيوعاً
     common = (
-        db.session.query(ErrorDetails.errortype, sqlfunc.count(ErrorDetails.errortype).label("cnt"))
-        .group_by(ErrorDetails.errortype)
-        .order_by(sqlfunc.count(ErrorDetails.errortype).desc())
+        db.session.query(RecitationWordDetails.status, sqlfunc.count(RecitationWordDetails.status).label("cnt"))
+        .filter(RecitationWordDetails.status != "صحيح")
+        .group_by(RecitationWordDetails.status)
+        .order_by(sqlfunc.count(RecitationWordDetails.status).desc())
         .first()
     )
     error_map = {"ناقص": "نقص كلمات", "زائد": "زيادة كلمات", "تحريف": "تحريف كلمات"}
     most_common_error_ar = error_map.get(common[0], common[0]) if common else "—"
-
     # السورة الأكثر تحققاً
     top_surah = (
         db.session.query(RecitationInput.surahid, sqlfunc.count(RecitationInput.surahid).label("cnt"))
@@ -721,3 +723,131 @@ def admin_verifications():
         .all()
     )
     return render_template("admin/admin_verifications.html", verifications=verifications)
+
+@main.route("/admin/reports")
+def admin_reports():
+    if not session.get("is_admin"):
+        return redirect(url_for("main.upload"))
+
+    from datetime import datetime, timedelta
+    from sqlalchemy import func as sqlfunc
+
+    period = request.args.get("period", "month")
+    now = datetime.utcnow()
+    if period == "week":
+        since = now - timedelta(days=7)
+    elif period == "month":
+        since = now - timedelta(days=30)
+    elif period == "3months":
+        since = now - timedelta(days=90)
+    elif period == "year":
+        since = now - timedelta(days=365)
+    else:
+        since = None
+
+    q = RecitationInput.query
+    if since:
+        q = q.filter(RecitationInput.processingdate >= since)
+    all_recs = q.all()
+
+    input_ids = [r.inputid for r in all_recs]
+    total_verifications = len(all_recs)
+    total_users = VerifierUser.query.count()
+
+    all_words = []
+    if input_ids:
+        all_words = RecitationWordDetails.query.filter(
+            RecitationWordDetails.inputid.in_(input_ids)
+        ).all()
+
+    total_errors  = sum(1 for w in all_words if w.status != "صحيح")
+    missing_count = sum(1 for w in all_words if w.status == "ناقص")
+    extra_count   = sum(1 for w in all_words if w.status == "زائد")
+    wrong_count   = sum(1 for w in all_words if w.status == "تحريف")
+
+    # توزيع المصادر
+    file_count    = sum(1 for r in all_recs if r.inputtype and 'youtube' not in r.inputtype.lower() and 'video' not in r.inputtype.lower())
+    youtube_count = sum(1 for r in all_recs if r.inputtype and 'youtube' in r.inputtype.lower())
+    video_count   = sum(1 for r in all_recs if r.inputtype and 'video' in r.inputtype.lower() and 'youtube' not in r.inputtype.lower())
+
+    # النشاط الأسبوعي
+    weekly_data = [0] * 7
+    for r in all_recs:
+        if r.processingdate:
+            day = r.processingdate.weekday()
+            mapped = {5: 0, 6: 1, 0: 2, 1: 3, 2: 4, 3: 5, 4: 6}
+            weekly_data[mapped[day]] += 1
+
+    # السور الأكثر تحققاً
+    surah_data = {}
+    for r in all_recs:
+        if r.surahid:
+            if r.surahid not in surah_data:
+                surah_data[r.surahid] = {"count": 0, "errors": 0, "files_with_errors": set()}
+            surah_data[r.surahid]["count"] += 1
+
+    # أخطاء لكل سورة
+    for w in all_words:
+        if w.status != "صحيح":
+            rec_obj = RecitationInput.query.get(w.inputid)
+            if rec_obj and rec_obj.surahid and rec_obj.surahid in surah_data:
+                surah_data[rec_obj.surahid]["errors"] += 1
+                surah_data[rec_obj.surahid]["files_with_errors"].add(w.inputid)
+
+    top_surahs = []
+    for surah_id, data in sorted(surah_data.items(), key=lambda x: x[1]["count"], reverse=True)[:6]:
+        surah_obj = QuranSurah.query.get(surah_id)
+        if surah_obj:
+            top_surahs.append({
+                "name": surah_obj.surahname,
+                "count": data["count"],
+                "errors": data["errors"],
+                "files_with_errors": len(data["files_with_errors"]),
+            })
+
+    # أكثر المستخدمين نشاطاً
+    all_users = VerifierUser.query.filter_by(is_admin=False).all()
+    top_users = sorted(all_users, key=lambda u: len(u.inputs), reverse=True)[:10]
+
+    # أكثر الأخطاء تكراراً
+    word_errors = []
+    for w in all_words:
+        if w.status != "صحيح":
+            rec_obj   = RecitationInput.query.get(w.inputid)
+            surah_obj = QuranSurah.query.get(rec_obj.surahid) if rec_obj and rec_obj.surahid else None
+            word      = w.expected_word if w.status == "ناقص" else w.spoken_word
+            if word:
+                word_errors.append((word, w.status, w.inputid, surah_obj.surahname if surah_obj else "—"))
+
+    word_agg = {}
+    for word, status, inputid, surah_name in word_errors:
+        key = (word, status, surah_name)
+        if key not in word_agg:
+            word_agg[key] = {"count": 0, "files": set()}
+        word_agg[key]["count"] += 1
+        word_agg[key]["files"].add(inputid)
+
+    top_words = sorted(
+        [{"word": k[0], "status": k[1], "surah": k[2],
+          "count": v["count"], "files": len(v["files"])}
+         for k, v in word_agg.items()],
+        key=lambda x: x["count"], reverse=True
+    )[:10]
+
+    return render_template(
+        "admin/admin_reports.html",
+        period=period,
+        total_users=total_users,
+        total_verifications=total_verifications,
+        total_errors=total_errors,
+        missing_count=missing_count,
+        extra_count=extra_count,
+        wrong_count=wrong_count,
+        file_count=file_count,
+        youtube_count=youtube_count,
+        video_count=video_count,
+        weekly_data=weekly_data,
+        top_surahs=top_surahs,
+        top_users=top_users,
+        top_words=top_words,
+    )

@@ -25,6 +25,10 @@
         <span class="side__icon"><img src="{{ url_for('static', filename='img/history.png') }}" alt="التلاوات"></span>
         <span>التلاوات والتحقق</span>
       </a>
+      <a class="side__item {% if request.endpoint == 'main.admin_reports' %}side__item--active{% endif %}" href="{{ url_for('main.admin_reports') }}">
+  <span class="side__icon"><img src="{{ url_for('static', filename='img/reportpage.png') }}" alt="التقارير"></span>
+  <span>التقارير العامة</span>
+</a>
     </nav>
   </aside>
 
@@ -67,7 +71,7 @@
           <tbody>
             {% if users %}
               {% for u in users %}
-              {% set last = u.inputs | sort(attribute='processingdate', reverse=True) | first %}
+              {% set last = u.inputs | selectattr('processingdate', 'ne', none) | sort(attribute='processingdate', reverse=True) | first %}
               {% set last_date = last.processingdate if last and last.processingdate else none %}
               {% set is_active = (last_date and (now - last_date).days <= 30) %}
               <tr data-name="{{ u.verifiername }}" data-email="{{ u.verifieremail }}">
